@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/cadetblue"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/question_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:text="1、"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/question_describe"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:text="在一个长度为n的顺序线性表中顺序查找值为x的元素时，查找成功时的平均查找长度（即x与元素的平均比较次数，假定查找每个元素的概率都相等）为"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/antiquewhite">
+
+        <EditText
+            android:id="@+id/question_text_answer"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:nestedScrollingEnabled="true"
+            android:background="@drawable/question_text_answer_bg"
+            android:text=""
+            android:hint="请输入答案"
+            android:textSize="16sp" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

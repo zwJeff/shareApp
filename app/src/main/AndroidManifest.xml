@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jeff.shareapp">
+
+    <!-- Include following permission if you load images from Internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Include following permission if you want to cache images on SD card -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+
+    <application
+        android:name=".util.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.MainActivity"
+            android:launchMode="singleTop"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/app_name">
+
+        </activity>
+        <activity android:name=".ui.allPage.ResourceDetialActivity" />
+        <activity android:name=".ui.task.TaskDetialActivity" />
+        <activity android:name=".ui.task.TestPaperActivity" />
+        <activity android:name=".ui.index.ResourceUploadActivity" />
+        <activity android:name=".ui.login.RegisterActivity" />
+        <activity android:name=".ui.login.GetPasswordBackActivity" />
+        <activity android:name=".ui.myPage.ChangePasswordActivity" />
+        <activity android:name=".ui.task.NewTaskActivity" />
+        <activity android:name=".ui.task.NewQuestionActivity" />
+        <activity android:name=".ui.task.GiveTaskToStudentActivity" />
+        <activity android:name=".ui.myPage.AccountActivity" />
+        <activity android:name=".ui.myPage.UploadHeadPicActivity" />
+        <activity android:name=".ui.myPage.BindEmailActivity" />
+        <activity android:name=".ui.myPage.ShareRecordActivity" />
+        <activity android:name=".ui.myPage.DownloadListActivity" />
+        <activity android:name=".ui.myPage.SettingActivity"></activity>
+        <activity android:name=".ui.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".ui.service.MyGetNotificationService" />
+
+    </application>
+
+</manifest>

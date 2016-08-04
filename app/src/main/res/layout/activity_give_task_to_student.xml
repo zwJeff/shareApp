@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.jeff.shareapp.ui.task.GiveTaskToStudentActivity">
+
+    <include android:id="@+id/title" layout="@layout/title_bar_layout" />
+
+    <RelativeLayout
+        android:id="@+id/search"
+        android:layout_below="@id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:layout_margin="8dp">
+        <EditText
+            android:id="@+id/find_student_key_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_view_bg"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="50dp"
+            android:hint="学生姓名/手机号码"/>
+        <ImageView
+            android:id="@+id/find_student_btn"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_find_student"
+            android:layout_marginTop="3dp"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/find_student_result_list"
+        android:layout_below="@id/search"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@id/find_student_result_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingTop="20dp">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:background="@color/dimgrey" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="已添加学生"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="4"
+            android:background="@color/dimgrey" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+    <Button
+        android:id="@+id/add_student_finish_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/blue_round_button_bg"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="完   成"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_below="@id/find_student_result_list"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/add_student_list"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

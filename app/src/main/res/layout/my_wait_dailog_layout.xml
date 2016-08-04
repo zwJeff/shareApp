@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="100dp"
+    android:gravity="center"
+    android:background="@drawable/wait_dialog_round_bg"
+    android:orientation="horizontal">
+
+    <ProgressBar
+        android:padding="10dp"
+        android:scrollbarStyle="insideInset"
+        android:layout_width="70dp"
+        android:layout_height="70dp" />
+    <TextView
+        android:id="@+id/wait_diaog_text"
+        android:text="处理中，请稍后..."
+        android:textColor="@color/aliceblue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

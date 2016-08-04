@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.jeff.shareapp.ui.MainActivity">
+
+    <include android:id="@+id/title_bar" layout="@layout/title_bar_layout"/>
+
+    <LinearLayout
+        android:id="@+id/tab_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/whitesmoke"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/index_bt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:contentDescription="首页"
+            android:gravity="center_horizontal|bottom"
+            android:src="@drawable/ic_index1" />
+
+        <ImageView
+            android:id="@+id/allpage_bt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:contentDescription="全部"
+            android:gravity="center_horizontal|bottom"
+            android:src="@drawable/ic_allpage0" />
+
+        <ImageView
+            android:id="@+id/task_bt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:contentDescription="学习任务"
+            android:gravity="center_horizontal|bottom"
+            android:src="@drawable/ic_task0" />
+
+        <ImageView
+            android:id="@+id/mypage_bt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:contentDescription="个人中心"
+            android:gravity="center_horizontal|bottom"
+            android:src="@drawable/ic_mypage0" />
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:layout_above="@id/tab_menu"
+        android:id="@+id/id_content"
+        android:layout_below="@+id/title_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+</RelativeLayout>

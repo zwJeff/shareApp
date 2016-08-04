@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:makeramen="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/allpage_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/item_allpage_resource_pic"
+        makeramen:riv_corner_radius="10dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:src="@mipmap/shujujiegou" />
+
+    <TextView
+        android:id="@+id/item_allpage_resource_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/item_allpage_resource_pic"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/item_allpage_resource_pic"
+        android:singleLine="true"
+        android:text="大学数学（一）学习讲义ppt"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/item_allpage_resource_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/item_allpage_resource_name"
+        android:layout_below="@id/item_allpage_resource_name"
+        android:layout_marginTop="10dp"
+        android:singleLine="true"
+        android:text="张武 上传于2015年10月15日"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/item_allpage_collect_pic"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@id/item_allpage_resource_pic"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/ic_favourite_normal_25dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/dimgrey" />
+</RelativeLayout>

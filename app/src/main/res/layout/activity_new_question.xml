@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jeff.shareapp.ui.task.NewQuestionActivity">
+
+    <include layout="@layout/title_bar_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/new_question_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="第1题/共10题"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
+
+
+        <EditText
+            android:id="@+id/new_question_describe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_text_view_bg"
+            android:hint="请输入题目描述"
+            android:padding="13dp"
+            android:textColor="@color/dimgray"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/new_question_type_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_conner_line_btn_bg"
+            android:padding="13dp"
+            android:textColor="#696969"
+            android:textSize="14sp">
+
+        </Spinner>
+
+        <LinearLayout
+            android:id="@+id/new_question_select_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <EditText
+            android:id="@+id/new_question_answer_a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_view_bg"
+            android:hint="请输入A选项描述"
+            android:padding="13dp"
+            android:textColor="@color/dimgray"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/new_question_answer_b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_view_bg"
+            android:hint="请输入B选项描述"
+            android:padding="13dp"
+            android:textColor="@color/dimgray"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/new_question_answer_c"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_view_bg"
+            android:hint="请输入C选项描述"
+            android:padding="13dp"
+            android:textColor="@color/dimgray"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/new_question_answer_d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_view_bg"
+            android:hint="请输入D选项描述"
+            android:padding="13dp"
+            android:textColor="@color/dimgray"
+            android:textSize="14sp" />
+        </LinearLayout>
+        <EditText
+            android:id="@+id/new_question_answer_true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_view_bg"
+            android:hint="请输入参考答案"
+            android:padding="13dp"
+            android:textColor="@color/dimgray"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/new_question_ok_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/blue_round_button_bg"
+            android:padding="10dp"
+            android:text="下一题"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:makeramen="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.jeff.shareapp.ui.myPage.UploadHeadPicActivity">
+
+    <include layout="@layout/title_bar_layout"/>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/upload_head_pic_image"
+        android:layout_marginTop="60dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@mipmap/ic_default_head_pic"
+        makeramen:riv_corner_radius="10dp"/>
+
+    <Button
+        android:id="@+id/upload_head_pic_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_round_button_bg"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_margin="30dp"
+        android:text="上传头像"/>
+
+</LinearLayout>

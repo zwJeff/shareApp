@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginTop="1dp"
+    android:layout_marginBottom="1dp"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:id="@+id/item_student_item">
+    <TextView
+        android:id="@+id/student_name"
+        android:layout_marginLeft="30dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:singleLine="true"
+        android:text="张武"/>
+    <TextView
+        android:id="@+id/student_telephone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:textSize="18sp"
+        android:singleLine="true"
+        android:text="15827427590"/>
+
+    <TextView
+        android:id="@+id/add_student_btn"
+        android:layout_width="0dp"
+        android:gravity="center"
+        android:layout_marginRight="30dp"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_conner_line_btn_bg"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        android:singleLine="true"
+        android:textColor="@color/main_blue"
+        android:text="添加"/>
+
+</LinearLayout>

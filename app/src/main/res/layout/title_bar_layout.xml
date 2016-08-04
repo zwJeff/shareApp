@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title_bar"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/main_blue">
+
+    <ImageView
+        android:id="@+id/img_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="35dp"
+        android:padding="10dp"
+        android:clickable="true"
+        android:layout_marginLeft="10dp"
+        android:visibility="invisible"
+        android:src="@mipmap/icon_back_normal" />
+
+
+    <TextView
+        android:id="@+id/lable_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="35dp"
+        android:singleLine="true"
+        android:textColor="@color/aliceblue"
+        android:text="慕课在线"
+        android:textSize="18sp" />
+
+</RelativeLayout>
