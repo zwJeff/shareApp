@@ -10,6 +10,7 @@
         android:layout_height="150dp" />
 
     <LinearLayout
+        android:id="@+id/dots_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"

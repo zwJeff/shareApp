@@ -359,15 +359,13 @@ public class AllPageFragment extends Fragment implements XListView.IXListViewLis
 
 
     @Override
-    public void onDetach() {
-
+    public void onDestroyView() {
         //退出activity前关闭菜单
         if (mDropDownMenu.isShowing()) {
             mDropDownMenu.closeMenu();
         }
         clearData();
-        super.onDetach();
-
+        super.onDestroyView();
     }
 
 

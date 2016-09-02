@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.view.DragEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -21,15 +23,15 @@ import com.jeff.shareapp.ui.task.TaskListFragment;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Administrator on 2015/5/6.
  * <p/>
  * Main
  */
 public class MainActivity extends BasicActivity implements View.OnClickListener {
-
-    // Fragment管理工具
-    public FragmentManager fm;
 
     //导航栏文字
     private TextView titleText;
@@ -46,6 +48,8 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
     // 底栏菜单组-我的页面
     private ImageView mypage_bt;
+
+    private ViewPager mViewPager;
 
     private static MainActivity instant;
 
@@ -65,6 +69,24 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         setContentView(R.layout.activity_main);
         initView(fragmentId);
         instant = this;
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                onClickChangeView(101+position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
 
         //开启后台服务检测是否有新通知，每10s轮询一次
         startService(new Intent(MainActivity.this, MyGetNotificationService.class));
@@ -101,8 +123,10 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
     // 初始化界面
     public void initView(int fragmentId) {
 
+        mViewPager= (ViewPager) findViewById(R.id.id_content);
+
         // 获取fragmentManager
-        fm = getSupportFragmentManager();
+       // fm = getSupportFragmentManager();
 
         titleText = (TextView) findViewById(R.id.lable_title);
 
@@ -110,7 +134,6 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         index_bt = (ImageView) findViewById(R.id.index_bt);
         allpage_bt = (ImageView) findViewById(R.id.allpage_bt);
         task_bt = (ImageView) findViewById(R.id.task_bt);
-        ;
         mypage_bt = (ImageView) findViewById(R.id.mypage_bt);
 
         // 设置监听
@@ -120,6 +143,19 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         mypage_bt.setOnClickListener(this);
 
 
+        List<Fragment> fragList=new ArrayList<>();
+        Fragment f1,f2,f3,f4;
+        f1 = new IndexFragment();
+        f2 = new AllPageFragment();
+        f3 = new TaskListFragment();
+        f4 = new MyPageFragment();
+        fragList.add(f1);
+        fragList.add(f2);
+        fragList.add(f3);
+        fragList.add(f4);
+
+        mViewPager.setAdapter(new MyPageViewAdapter(fragList,getSupportFragmentManager()));
+
         onClickChangeView(fragmentId);
     }
 
@@ -127,13 +163,10 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
     // 动态更换fragment
     public void onClickChangeView(int fragmentId) {
 
-        Fragment currentFragment;
-
         // 设置默认fragment
         switch (fragmentId) {
             case 101:
                 titleText.setText("慕课在线");
-                currentFragment = new IndexFragment();
                 index_bt.setImageResource(R.drawable.ic_index1);
                 allpage_bt.setImageResource(R.drawable.ic_allpage0);
                 task_bt.setImageResource(R.drawable.ic_task0);
@@ -141,7 +174,6 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
                 break;
             case 102:
                 titleText.setText("全部资源");
-                currentFragment = new AllPageFragment();
                 index_bt.setImageResource(R.drawable.ic_index0);
                 allpage_bt.setImageResource(R.drawable.ic_allpage1);
                 task_bt.setImageResource(R.drawable.ic_task0);
@@ -149,7 +181,6 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
                 break;
             case 103:
                 titleText.setText("学习任务");
-                currentFragment = new TaskListFragment();
                 index_bt.setImageResource(R.drawable.ic_index0);
                 allpage_bt.setImageResource(R.drawable.ic_allpage0);
                 task_bt.setImageResource(R.drawable.ic_task1);
@@ -157,23 +188,17 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
                 break;
             case 104:
                 titleText.setText("我的空间");
-                currentFragment = new MyPageFragment();
                 index_bt.setImageResource(R.drawable.ic_index0);
                 allpage_bt.setImageResource(R.drawable.ic_allpage0);
                 task_bt.setImageResource(R.drawable.ic_task0);
                 mypage_bt.setImageResource(R.drawable.ic_mypage1);
                 break;
             default:
-                currentFragment = new IndexFragment();
+                mViewPager.setCurrentItem(0,false);
 
         }
 
-        // 开启Fragment事务
-        FragmentTransaction transaction = fm.beginTransaction();
 
-        transaction.replace(R.id.id_content, currentFragment);
-
-        transaction.commit();
     }
 
 
@@ -184,18 +209,22 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
         switch (v.getId()) {
             case R.id.index_bt:
+                mViewPager.setCurrentItem(0,false);
                 onClickChangeView(StaticFlag.INDEXPAGE_FRAGMENT);
                 break;
 
             case R.id.allpage_bt:
+                mViewPager.setCurrentItem(1,false);
                 onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT);
                 break;
 
             case R.id.task_bt:
+                mViewPager.setCurrentItem(2,false);
                 onClickChangeView(StaticFlag.TASKPAGE_FRAGMENT);
                 break;
 
             case R.id.mypage_bt:
+                mViewPager.setCurrentItem(3,false);
                 onClickChangeView(StaticFlag.MYPAGE_FRAGMENT);
                 break;
 

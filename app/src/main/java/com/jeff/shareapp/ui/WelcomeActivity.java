@@ -72,7 +72,7 @@ public class WelcomeActivity extends BasicActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+            super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
         isLogin();
     }

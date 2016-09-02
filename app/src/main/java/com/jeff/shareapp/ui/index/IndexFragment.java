@@ -136,6 +136,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener {
         upload.setOnClickListener(this);
         hotResourceForm = (LinearLayout) view.findViewById(R.id.hot_resource);
         adViewPager = (ViewPager) view.findViewById(R.id.vp);
+
         dot0 = view.findViewById(R.id.v_dot0);
         dot1 = view.findViewById(R.id.v_dot1);
         dot2 = view.findViewById(R.id.v_dot2);
