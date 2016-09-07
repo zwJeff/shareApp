@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:makeramen="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:makeramen="http://schemas.android.com/apk/res-auto"
     tools:context="com.jeff.shareapp.ui.index.IndexFragment">
 
 
@@ -15,9 +15,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <com.jeff.shareapp.ui.CustomVIew.BannerCirlePlayer
+                android:id="@+id/banner_circle"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
 
-            <include layout="@layout/banner" />
-
+            </com.jeff.shareapp.ui.CustomVIew.BannerCirlePlayer>
 
             <LinearLayout
                 android:id="@+id/index_coursegroup1"
@@ -33,8 +36,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@mipmap/yuwen"
-                    makeramen:riv_corner_radius="100dp"
-                    />
+                    makeramen:riv_corner_radius="100dp" />
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="0dp"

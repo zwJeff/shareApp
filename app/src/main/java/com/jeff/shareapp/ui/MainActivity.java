@@ -5,15 +5,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.view.DragEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.ui.allPage.AllPageFragment;
 import com.jeff.shareapp.ui.index.IndexFragment;
@@ -22,7 +18,6 @@ import com.jeff.shareapp.ui.service.MyGetNotificationService;
 import com.jeff.shareapp.ui.task.TaskListFragment;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,9 +119,6 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
     public void initView(int fragmentId) {
 
         mViewPager= (ViewPager) findViewById(R.id.id_content);
-
-        // 获取fragmentManager
-       // fm = getSupportFragmentManager();
 
         titleText = (TextView) findViewById(R.id.lable_title);
 
