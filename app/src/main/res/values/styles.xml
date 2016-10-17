@@ -5,14 +5,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="dot_style">
-        <item name="android:layout_width">5dip</item>
-        <item name="android:layout_height">5dip</item>
-        <item name="android:background">@drawable/dot_normal</item>
-        <item name="android:layout_marginLeft">1.5dip</item>
-        <item name="android:layout_marginRight">1.5dip</item>
-    </style>
-
     <style name="dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item><!--边框-->
         <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->

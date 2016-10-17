@@ -44,12 +44,14 @@ public class StaticFlag {
 
     //服务器地址
 
+    //阿里云
+    public final static String HOST = "http://114.215.137.58:8080";
     //家里
-//    public final static String HOST = "http://192.168.31.105:8080";
- //笔记本放wifi
-    public final static String HOST = "http://192.168.191.1:8080";
-//公司
-//    public final static String HOST = "http://10.106.138.24:8080";
+    //public final static String HOST = "http://192.168.31.105:8080";
+    //笔记本放wifi
+    //public final static String HOST = "http://192.168.191.1:8080";
+    //公司
+    //public final static String HOST = "http://10.106.138.24:8080";
 
     public final static String SERVICE = HOST + "/shareApp/";
 

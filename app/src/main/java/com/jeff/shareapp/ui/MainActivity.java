@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.ui.allPage.AllPageFragment;
 import com.jeff.shareapp.ui.index.IndexFragment;
@@ -18,6 +19,7 @@ import com.jeff.shareapp.ui.service.MyGetNotificationService;
 import com.jeff.shareapp.ui.task.TaskListFragment;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +75,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
             @Override
             public void onPageSelected(int position) {
-                onClickChangeView(101+position);
+                onClickChangeView(101 + position,false,false);
             }
 
             @Override
@@ -86,6 +88,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         //开启后台服务检测是否有新通知，每10s轮询一次
         startService(new Intent(MainActivity.this, MyGetNotificationService.class));
     }
+
     protected void onDestroy() {
         super.onDestroy();
 
@@ -118,7 +121,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
     // 初始化界面
     public void initView(int fragmentId) {
 
-        mViewPager= (ViewPager) findViewById(R.id.id_content);
+        mViewPager = (ViewPager) findViewById(R.id.id_content);
 
         titleText = (TextView) findViewById(R.id.lable_title);
 
@@ -135,8 +138,8 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         mypage_bt.setOnClickListener(this);
 
 
-        List<Fragment> fragList=new ArrayList<>();
-        Fragment f1,f2,f3,f4;
+        List<Fragment> fragList = new ArrayList<>();
+        Fragment f1, f2, f3, f4;
         f1 = new IndexFragment();
         f2 = new AllPageFragment();
         f3 = new TaskListFragment();
@@ -146,19 +149,21 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         fragList.add(f3);
         fragList.add(f4);
 
-        mViewPager.setAdapter(new MyPageViewAdapter(fragList,getSupportFragmentManager()));
+        mViewPager.setAdapter(new MyPageViewAdapter(fragList, getSupportFragmentManager()));
 
-        onClickChangeView(fragmentId);
+        onClickChangeView(fragmentId,false, false);
     }
 
 
     // 动态更换fragment
-    public void onClickChangeView(int fragmentId) {
+    public void onClickChangeView(int fragmentId, boolean isChangeFragment, boolean isAnimotion) {
 
         // 设置默认fragment
         switch (fragmentId) {
             case 101:
                 titleText.setText("慕课在线");
+                if (isChangeFragment)
+                    mViewPager.setCurrentItem(0, isAnimotion);
                 index_bt.setImageResource(R.drawable.ic_index1);
                 allpage_bt.setImageResource(R.drawable.ic_allpage0);
                 task_bt.setImageResource(R.drawable.ic_task0);
@@ -166,6 +171,8 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
                 break;
             case 102:
                 titleText.setText("全部资源");
+                if (isChangeFragment)
+                    mViewPager.setCurrentItem(1, isAnimotion);
                 index_bt.setImageResource(R.drawable.ic_index0);
                 allpage_bt.setImageResource(R.drawable.ic_allpage1);
                 task_bt.setImageResource(R.drawable.ic_task0);
@@ -173,6 +180,8 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
                 break;
             case 103:
                 titleText.setText("学习任务");
+                if (isChangeFragment)
+                    mViewPager.setCurrentItem(2, isAnimotion);
                 index_bt.setImageResource(R.drawable.ic_index0);
                 allpage_bt.setImageResource(R.drawable.ic_allpage0);
                 task_bt.setImageResource(R.drawable.ic_task1);
@@ -180,13 +189,15 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
                 break;
             case 104:
                 titleText.setText("我的空间");
+                if (isChangeFragment)
+                    mViewPager.setCurrentItem(3, isAnimotion);
                 index_bt.setImageResource(R.drawable.ic_index0);
                 allpage_bt.setImageResource(R.drawable.ic_allpage0);
                 task_bt.setImageResource(R.drawable.ic_task0);
                 mypage_bt.setImageResource(R.drawable.ic_mypage1);
                 break;
             default:
-                mViewPager.setCurrentItem(0,false);
+                mViewPager.setCurrentItem(0, false);
 
         }
 
@@ -201,23 +212,19 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
         switch (v.getId()) {
             case R.id.index_bt:
-                mViewPager.setCurrentItem(0,false);
-                onClickChangeView(StaticFlag.INDEXPAGE_FRAGMENT);
+                onClickChangeView(StaticFlag.INDEXPAGE_FRAGMENT,true, false);
                 break;
 
             case R.id.allpage_bt:
-                mViewPager.setCurrentItem(1,false);
-                onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT);
+                onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT,true, false);
                 break;
 
             case R.id.task_bt:
-                mViewPager.setCurrentItem(2,false);
-                onClickChangeView(StaticFlag.TASKPAGE_FRAGMENT);
+                onClickChangeView(StaticFlag.TASKPAGE_FRAGMENT,true, false);
                 break;
 
             case R.id.mypage_bt:
-                mViewPager.setCurrentItem(3,false);
-                onClickChangeView(StaticFlag.MYPAGE_FRAGMENT);
+                onClickChangeView(StaticFlag.MYPAGE_FRAGMENT,true, false);
                 break;
 
         }

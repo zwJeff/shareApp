@@ -1,149 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:makeramen="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.jeff.shareapp.ui.index.IndexFragment">
 
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+    <com.markmao.pulltorefresh.widget.XScrollView
+        android:id="@+id/index_mainview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.jeff.shareapp.ui.CustomVIew.BannerCirlePlayer
-                android:id="@+id/banner_circle"
-                android:layout_width="match_parent"
-                android:layout_height="150dp">
-
-            </com.jeff.shareapp.ui.CustomVIew.BannerCirlePlayer>
-
-            <LinearLayout
-                android:id="@+id/index_coursegroup1"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:paddingTop="15dp">
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/yuwen"
-                    makeramen:riv_corner_radius="100dp" />
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/math"
-                    makeramen:riv_corner_radius="100dp" />
-
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/english"
-                    makeramen:riv_corner_radius="100dp" />
-
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/shujujiegou"
-                    makeramen:riv_corner_radius="100dp" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/index_coursegroup2"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:paddingTop="15dp">
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/cyuyan"
-                    makeramen:riv_corner_radius="100dp" />
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/java"
-                    makeramen:riv_corner_radius="100dp" />
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/ruanjian"
-                    makeramen:riv_corner_radius="100dp" />
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/all"
-                    makeramen:riv_corner_radius="100dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingTop="30dp">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_weight="1"
-                    android:background="@color/dimgrey" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:text="热门资源"
-                    android:textSize="16sp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_weight="4"
-                    android:background="@color/dimgrey" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/hot_resource"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:paddingTop="15dp">
-
-
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+    </com.markmao.pulltorefresh.widget.XScrollView>
 
     <ImageView
         android:id="@+id/index_upload"

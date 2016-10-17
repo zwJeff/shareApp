@@ -520,4 +520,7 @@ public class XScrollView extends ScrollView implements OnScrollListener {
 
         public void onLoadMore();
     }
+
+
+
 }
