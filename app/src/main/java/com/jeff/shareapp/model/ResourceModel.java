@@ -61,7 +61,7 @@ public class ResourceModel  implements java.io.Serializable {
 
     public ResourceModel(int resourceAuthor, int resourceCourseType, String resourceName,
 			String resourceUrl, int resourceFileType,
-			java.sql.Date resourceUploadTime, int resourceDownloadTime, int resourceCollectTime) {
+			Date resourceUploadTime, int resourceDownloadTime, int resourceCollectTime) {
 		// TODO Auto-generated constructor stub
     	this.resourceName = resourceName;
         this.resourceUrl = resourceUrl;

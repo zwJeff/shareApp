@@ -11,9 +11,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.ui.MainActivity;
+import com.jeff.shareapp.util.FormatUtil;
 import com.jeff.shareapp.util.MyApplication;
 import com.jeff.shareapp.util.MyVolley;
 import com.jeff.shareapp.util.MyVolleyListener;
@@ -76,7 +78,7 @@ public class MyGetNotificationService extends Service {
         new MyVolley<Integer>(StaticFlag.GET_STUDENT_TASK_NEW, mParams, new MyVolleyListener() {
             @Override
             public void onSuccess(Object data) {
-                Gson gson = new Gson();
+                Gson gson = FormatUtil.getFormatGson();
                 String jsonResult = gson.toJson(data);
                 Integer num = gson.fromJson(jsonResult, new TypeToken<Integer>() {
                 }.getType());

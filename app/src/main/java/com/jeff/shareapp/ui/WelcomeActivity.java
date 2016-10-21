@@ -13,6 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.login.LoginActivity;
+import com.jeff.shareapp.util.FormatUtil;
 import com.jeff.shareapp.util.MyApplication;
 import com.jeff.shareapp.util.MyVolley;
 import com.jeff.shareapp.util.MyVolleyListener;
@@ -92,7 +93,7 @@ public class WelcomeActivity extends BasicActivity {
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         UserinfoModel d = gson.fromJson(jsonResult, new TypeToken<UserinfoModel>() {
                         }.getType());

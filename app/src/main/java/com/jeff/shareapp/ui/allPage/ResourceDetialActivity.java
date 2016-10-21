@@ -117,7 +117,7 @@ public class ResourceDetialActivity extends BasicActivity implements View.OnClic
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         resource = gson.fromJson(jsonResult, new TypeToken<ResourceRespModel>() {
                         }.getType());

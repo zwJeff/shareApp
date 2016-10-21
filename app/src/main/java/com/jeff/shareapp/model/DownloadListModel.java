@@ -32,15 +32,6 @@ public class DownloadListModel implements java.io.Serializable {
 		this.downloadTime = downloadTime;
 	}
 
-	// Property accessors
-
-	public DownloadListModel(String user_id, String resource_id,
-			java.sql.Date currentSqlDate) {
-		// TODO Auto-generated constructor stub
-		this.downloadRecourceId =Integer.parseInt(resource_id);
-		this.downloadUserId = Integer.parseInt(user_id);
-		this.downloadTime = currentSqlDate;
-	}
 
 	public Integer getDownloadId() {
 		return this.downloadId;

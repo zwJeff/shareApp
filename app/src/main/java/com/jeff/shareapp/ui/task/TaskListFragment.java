@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.adapter.ResourceListAdapter;
@@ -22,6 +23,7 @@ import com.jeff.shareapp.model.CourseTypeModel;
 import com.jeff.shareapp.model.TaskModel;
 import com.jeff.shareapp.model.TaskRespModel;
 import com.jeff.shareapp.ui.MainActivity;
+import com.jeff.shareapp.util.FormatUtil;
 import com.jeff.shareapp.util.MyApplication;
 import com.jeff.shareapp.util.MyVolley;
 import com.jeff.shareapp.util.MyVolleyListener;
@@ -30,6 +32,7 @@ import com.markmao.pulltorefresh.widget.XListView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -39,19 +42,14 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
 
     private List<TaskRespModel> taskList;
     private List<TaskRespModel> mainTaskList;
-
+    private RelativeLayout errorView;
+    private TextView errorText;
     private TextView currentBtn;
-
     private TextView historyBtn;
-
     private int labFlag = 0;
-
     private XListView mXistView;
-
     private TaskListAdapter mAdapter;
-
     private View view;
-
     private int page_num = 0;
     private int page_count = 10;
 
@@ -62,26 +60,35 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
                 case 1:
                     if (page_num == 0) {
                         //下拉刷新
-                        mainTaskList=taskList;
-                        if(mXistView==null)
+                        mainTaskList = taskList;
+                        if (mXistView == null)
                             initXListView();
-                        if (mainTaskList==null||(taskList!=null&&mainTaskList.size() == 0)) {
+                        if (mainTaskList == null || (taskList != null && mainTaskList.size() == 0)) {
+                            mXistView.setVisibility(View.GONE);
+                            errorView.setVisibility(View.VISIBLE);
                             if (labFlag == 0)
-                                mXistView.setFooterText("暂无当前任务记录");
+                                errorText.setText("没找到任何当前任务记录，请点击重试！");
                             else
-                                mXistView.setFooterText("暂无历史任务记录");
+                                errorText.setText("没找到任何历史任务记录，请点击重试！");
                         } else {
                             mAdapter = new TaskListAdapter(labFlag, mainTaskList, (RelativeLayout) view.findViewById(R.id.index_list_item), getContext());
                             mAdapter.setFlag(labFlag);
                             mXistView.setAdapter(mAdapter);
 
+                            mXistView.setVisibility(View.VISIBLE);
+                            errorView.setVisibility(View.GONE);
+
                             if (mainTaskList.size() > 0)
                                 mXistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                        TaskDetialActivity.startActivity(getActivity(), mainTaskList.get(position-1) + "");
+                                        TaskDetialActivity.startActivity(getActivity(), mainTaskList.get(position - 1) + "");
                                     }
                                 });
+                            if (mainTaskList.size() < 10){
+                                mXistView.setPullLoadEnable(false);
+                                mXistView.setFooterText("暂无更多任务记录");
+                            }
 
                         }
                         mXistView.stopRefresh();
@@ -90,22 +97,28 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
                         //上滑加载
 
                         mXistView.stopLoadMore();
-                        if (taskList==null||(taskList!=null&&taskList.size() == 0)) {
+                        if (taskList == null || (taskList != null && taskList.size() == 0)) {
                             mXistView.setFooterText("暂无更多任务记录");
                             page_num--;
                         } else
                             mAdapter.addDataList(taskList);
+
+                        mXistView.stopLoadMore();
                     }
                     break;
 
 
                 case 0:
                     Toast.makeText(getContext(), msg.getData().getString("failure_message"), Toast.LENGTH_SHORT).show();
+                    mXistView.setVisibility(View.GONE);
+                    errorView.setVisibility(View.VISIBLE);
+                    errorText.setText(msg.getData().getString("failure_message") + "，请点击重试！");
                     break;
                 case StaticFlag.ERROR:
-                    try {
-                    } catch (Exception e) {
-                    }
+
+                    mXistView.setVisibility(View.GONE);
+                    errorView.setVisibility(View.VISIBLE);
+                    errorText.setText(msg.getData().getString("message") + "，请点击重试！");
                     Toast.makeText(getContext(), msg.getData().getString("message"), Toast.LENGTH_SHORT).show();
                     break;
             }
@@ -129,29 +142,33 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_task_list, container, false);
         this.view = view;
-        initLabView();
+        initView();
         return view;
     }
 
 
-    private void initLabView() {
+    private void initView() {
         currentBtn = (TextView) view.findViewById(R.id.current_notice_button);
         historyBtn = (TextView) view.findViewById(R.id.history_notice_button);
+        errorView = (RelativeLayout) view.findViewById(R.id.error_view);
+        errorText = (TextView) view.findViewById(R.id.error_text);
+        mXistView = (XListView) view.findViewById(R.id.task_list_view);
         currentBtn.setOnClickListener(this);
         historyBtn.setOnClickListener(this);
-
+        errorView.setOnClickListener(this);
+        errorView.setVisibility(View.GONE);
         changeLab();
     }
 
     private void initXListView() {
 
 
-        mXistView = (XListView) view.findViewById(R.id.task_list_view);
         mXistView.setPullRefreshEnable(true);
         mXistView.setPullLoadEnable(true);
         mXistView.setAutoLoadEnable(true);
         mXistView.setXListViewListener(this);
         mXistView.setRefreshTime(getTime());
+        mXistView.setRefreshTime(new SimpleDateFormat("MM-dd HH:mm", Locale.CHINA).format(new Date()));
 
 
     }
@@ -198,6 +215,9 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
                 labFlag = 1;
                 changeLab();
                 break;
+            case R.id.error_view:
+                getTaskList();
+                break;
         }
     }
 
@@ -214,7 +234,7 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onRefresh() {
 
-        page_num=0;
+        page_num = 0;
         changeLab();
 
     }
@@ -228,6 +248,7 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void getTaskList() {
+
         String url;
         if (MyApplication.getMyApplication().getUserinfo().getUserType() == StaticFlag.TEACHER_USER_TYPE)
             url = StaticFlag.TEACHER_GET_TASK_LIST;
@@ -245,7 +266,7 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         taskList = gson.fromJson(jsonResult, new TypeToken<List<TaskRespModel>>() {
                         }.getType());

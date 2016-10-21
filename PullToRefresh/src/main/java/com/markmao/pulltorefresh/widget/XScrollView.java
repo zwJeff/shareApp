@@ -171,6 +171,7 @@ public class XScrollView extends ScrollView implements OnScrollListener {
         if (mContentLayout == null) {
             mContentLayout = (LinearLayout) mLayout.findViewById(R.id.content_layout);
         }
+        mContentLayout.removeAllViews();
         mContentLayout.addView(content);
     }
 

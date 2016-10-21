@@ -218,7 +218,7 @@ public class RegisterActivity extends BasicActivity implements OnClickListener {
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         u = gson.fromJson(jsonResult, new TypeToken<UserinfoModel>() {
                         }.getType());

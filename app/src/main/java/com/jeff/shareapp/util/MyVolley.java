@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.ResponseEntivity.MyResponse;
 import com.jeff.shareapp.model.UserinfoModel;
@@ -33,7 +34,7 @@ public class MyVolley<T> {
 
     public MyVolley(String url, final HashMap<String, String> params, final MyVolleyListener mListener) {
 
-        final Gson gson = new Gson();
+        final Gson gson = FormatUtil.getFormatGson();
 
         //打印请求地址
 
@@ -50,10 +51,6 @@ public class MyVolley<T> {
                         }.getType());
 
                         if (myResponse.getStatus() == 200) {
-//                            Gson gson = new Gson();
-//                            String jsonResult = gson.toJson(myResponse.getResult());
-//                            T num = gson.fromJson(jsonResult, new TypeToken<T>() {
-//                            }.getType());
                             mListener.onSuccess(myResponse.getResult());
                         } else
                             mListener.onFailure(myResponse.getStatus(), myResponse.getMessage());

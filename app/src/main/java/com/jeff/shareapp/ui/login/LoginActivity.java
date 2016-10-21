@@ -25,6 +25,7 @@ import com.jeff.shareapp.ui.BasicActivity;
 import com.jeff.shareapp.ui.CustomVIew.MyDialog;
 import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
 import com.jeff.shareapp.ui.MainActivity;
+import com.jeff.shareapp.util.FormatUtil;
 import com.jeff.shareapp.util.MyApplication;
 import com.jeff.shareapp.util.MyVolley;
 import com.jeff.shareapp.util.MyVolleyListener;
@@ -165,7 +166,7 @@ public class LoginActivity extends BasicActivity {
                 new MyVolleyListener() {
                     @Override
                     public void onSuccess(Object data) {
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         UserinfoModel num = gson.fromJson(jsonResult, new TypeToken<UserinfoModel>() {
                         }.getType());

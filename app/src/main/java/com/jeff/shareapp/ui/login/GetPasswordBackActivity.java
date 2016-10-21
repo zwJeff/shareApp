@@ -25,6 +25,7 @@ import com.jeff.shareapp.ui.CustomVIew.MyDialog;
 import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
 import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.ui.myPage.ChangePasswordActivity;
+import com.jeff.shareapp.util.FormatUtil;
 import com.jeff.shareapp.util.MyApplication;
 import com.jeff.shareapp.util.MyVolley;
 import com.jeff.shareapp.util.MyVolleyListener;
@@ -204,7 +205,7 @@ public class GetPasswordBackActivity extends BasicActivity implements OnClickLis
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         String password = gson.fromJson(jsonResult, new TypeToken<String>() {
                         }.getType());

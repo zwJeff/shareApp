@@ -5,33 +5,64 @@
     tools:context="com.jeff.shareapp.ui.allPage.AllPageFragment">
 
 
-
     <com.markmao.pulltorefresh.widget.XListView
         android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="45dp"
+        android:cacheColorHint="#00000000"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" />
+
+    <RelativeLayout
+        android:id="@+id/error_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_marginTop="45dp"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cacheColorHint="#00000000" />
+        android:paddingRight="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/error" />
+
+            <TextView
+                android:id="@+id/error_text"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="没找到匹配的结果，请修改条件或者点击重试！"/>
+
+        </LinearLayout>
+    </RelativeLayout>
 
     <com.jeff.shareapp.ui.allPage.DropDownMenu xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/dropDownMenu"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        app:dddividerColor="@color/gray"
+        android:layout_alignParentTop="true"
+        app:dddividerColor="@color/white"
         app:ddmaskColor="@color/mask_color"
         app:ddmenuBackgroundColor="@color/white"
         app:ddmenuSelectedIcon="@mipmap/drop_down_selected_icon"
         app:ddmenuTextSize="13sp"
         app:ddmenuUnselectedIcon="@mipmap/drop_down_unselected_icon"
         app:ddtextSelectedColor="@color/main_blue"
-        app:ddtextUnselectedColor="@color/drop_down_unselected"
-        app:ddunderlineColor="@color/gray" />
-
+        app:ddtextUnselectedColor="@color/dimgray"
+        app:ddunderlineColor="@color/white" />
 
 
 </RelativeLayout>

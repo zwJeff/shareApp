@@ -41,7 +41,38 @@
 
 
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/error_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="45dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/error" />
+
+            <TextView
+                android:id="@+id/error_text"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="没找到任何当前任务记录，请点击重试！"/>
+
+        </LinearLayout>
+    </RelativeLayout>
     <com.markmao.pulltorefresh.widget.XListView
         android:id="@+id/task_list_view"
         android:layout_width="match_parent"

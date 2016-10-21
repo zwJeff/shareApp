@@ -1,5 +1,8 @@
 package com.jeff.shareapp.util;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -14,6 +17,10 @@ public class FormatUtil {
 
         // public final String format(Date date)
         return sdf.format(d);
+    }
+
+    public static Gson getFormatGson() {
+       return  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
     }
 }
 

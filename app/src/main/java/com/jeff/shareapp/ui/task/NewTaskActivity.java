@@ -24,6 +24,7 @@ import com.jeff.shareapp.ui.CustomVIew.MyInputDialog;
 import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
 import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.ui.index.ResourceUploadActivity;
+import com.jeff.shareapp.util.FormatUtil;
 import com.jeff.shareapp.util.MyApplication;
 import com.jeff.shareapp.util.MyVolley;
 import com.jeff.shareapp.util.MyVolleyListener;
@@ -234,7 +235,7 @@ public class NewTaskActivity extends BasicActivity implements View.OnClickListen
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         taskId = gson.fromJson(jsonResult, new TypeToken<Integer>() {
                         }.getType());

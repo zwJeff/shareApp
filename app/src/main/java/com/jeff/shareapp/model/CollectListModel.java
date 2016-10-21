@@ -32,15 +32,7 @@ public class CollectListModel implements java.io.Serializable {
 		this.collectTime = collectTime;
 	}
 
-	// Property accessors
 
-	public CollectListModel(int resource_id, int user_id,
-			java.sql.Date currentSqlDate) {
-		// TODO Auto-generated constructor stub
-		this.collectRecourceId = resource_id;
-		this.collectUserId = user_id;
-		this.collectTime = currentSqlDate;
-	}
 
 	public Integer getCollectId() {
 		return this.collectId;

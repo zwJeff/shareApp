@@ -33,6 +33,7 @@ import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.ui.login.RegisterActivity;
 import com.jeff.shareapp.ui.myPage.ChangePasswordActivity;
 import com.jeff.shareapp.ui.task.NewTaskActivity;
+import com.jeff.shareapp.util.FormatUtil;
 import com.jeff.shareapp.util.MyApplication;
 import com.jeff.shareapp.util.MyVolley;
 import com.jeff.shareapp.util.MyVolleyListener;
@@ -193,7 +194,7 @@ public class ResourceUploadActivity extends BasicActivity implements View.OnClic
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         course = gson.fromJson(jsonResult, new TypeToken<List<CourseTypeModel>>() {
                         }.getType());
@@ -301,8 +302,7 @@ public class ResourceUploadActivity extends BasicActivity implements View.OnClic
                     new MyVolleyListener() {
                         @Override
                         public void onSuccess(Object data) {
-
-                            Gson gson = new Gson();
+                            Gson gson = FormatUtil.getFormatGson();
                             String jsonResult = gson.toJson(data);
                             String r = gson.fromJson(jsonResult, new TypeToken<String>() {
                             }.getType());

@@ -9,15 +9,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.model.CourseTypeModel;
@@ -38,7 +36,6 @@ import com.jeff.shareapp.util.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 import com.markmao.pulltorefresh.widget.XScrollView;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -167,7 +164,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         hotResourceList = gson.fromJson(jsonResult, new TypeToken<List<ResourceRespModel>>() {
                         }.getType());
@@ -209,7 +206,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         courseList = gson.fromJson(jsonResult, new TypeToken<List<CourseTypeModel>>() {
                         }.getType());
@@ -252,7 +249,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         newsList = gson.fromJson(jsonResult, new TypeToken<List<PictureListModel>>() {
                         }.getType());

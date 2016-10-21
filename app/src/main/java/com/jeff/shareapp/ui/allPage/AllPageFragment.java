@@ -1,5 +1,4 @@
 package com.jeff.shareapp.ui.allPage;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +13,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
@@ -24,6 +22,7 @@ import com.jeff.shareapp.adapter.ResourceListAdapter;
 import com.jeff.shareapp.model.CourseTypeModel;
 import com.jeff.shareapp.model.ResourceRespModel;
 import com.jeff.shareapp.ui.MainActivity;
+import com.jeff.shareapp.util.FormatUtil;
 import com.jeff.shareapp.util.MyApplication;
 import com.jeff.shareapp.util.MyVolley;
 import com.jeff.shareapp.util.MyVolleyListener;
@@ -52,6 +51,9 @@ public class AllPageFragment extends Fragment implements XListView.IXListViewLis
     private ListDropDownAdapter fileTypeAdapter;
     private ListDropDownAdapter sexAdapter;
 
+
+    //错误界面
+    private RelativeLayout errorView;
 
     //选择栏填充内容
     private List<CourseTypeModel> courseList = new ArrayList<>();
@@ -144,6 +146,16 @@ public class AllPageFragment extends Fragment implements XListView.IXListViewLis
 
     private void initView() {
         mDropDownMenu = (DropDownMenu) view.findViewById(R.id.dropDownMenu);
+        errorView= (RelativeLayout) view.findViewById(R.id.error_view);
+        errorView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getResourceList();
+                errorView.setVisibility(View.GONE);
+                xListView.setVisibility(View.VISIBLE);
+            }
+        });
+        errorView.setVisibility(View.GONE);
     }
 
     private void initData() {
@@ -162,7 +174,7 @@ public class AllPageFragment extends Fragment implements XListView.IXListViewLis
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         courseList = gson.fromJson(jsonResult, new TypeToken<List<CourseTypeModel>>() {
                         }.getType());
@@ -210,7 +222,7 @@ public class AllPageFragment extends Fragment implements XListView.IXListViewLis
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         resourceList = gson.fromJson(jsonResult, new TypeToken<List<ResourceRespModel>>() {
                         }.getType());
@@ -257,8 +269,8 @@ public class AllPageFragment extends Fragment implements XListView.IXListViewLis
         xListView.setAdapter(mAdapter);
 
         if (resourceList.size() == 0) {
-            xListView.setFooterText("无符合条件的资源");
-            Toast.makeText(getContext(), "无符合条件的资源！", Toast.LENGTH_LONG).show();
+            errorView.setVisibility(View.VISIBLE);
+            xListView.setVisibility(View.GONE);
         }else {
 
             xListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

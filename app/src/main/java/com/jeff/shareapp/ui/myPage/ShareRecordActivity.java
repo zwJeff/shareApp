@@ -24,6 +24,7 @@ import com.jeff.shareapp.model.TaskRespModel;
 import com.jeff.shareapp.ui.BasicActivity;
 import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.ui.allPage.ResourceDetialActivity;
+import com.jeff.shareapp.util.FormatUtil;
 import com.jeff.shareapp.util.MyApplication;
 import com.jeff.shareapp.util.MyVolley;
 import com.jeff.shareapp.util.MyVolleyListener;
@@ -119,7 +120,7 @@ public class ShareRecordActivity extends BasicActivity implements XListView.IXLi
                     @Override
                     public void onSuccess(Object data) {
 
-                        Gson gson = new Gson();
+                        Gson gson = FormatUtil.getFormatGson();
                         String jsonResult = gson.toJson(data);
                         resourceList = gson.fromJson(jsonResult, new TypeToken<List<ResourceRespModel>>() {
                         }.getType());

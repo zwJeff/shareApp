@@ -3,6 +3,9 @@
     xmlns:makeramen="http://schemas.android.com/apk/res-auto"
     android:id="@+id/index_list_item"
     android:layout_width="match_parent"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:layout_marginBottom="1dp"
     android:layout_height="100dp">
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -37,9 +40,4 @@
         android:text="张武 上传于2015年10月15日"
         android:textSize="14sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/dimgrey" />
 </RelativeLayout>
