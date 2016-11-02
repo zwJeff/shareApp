@@ -8,7 +8,7 @@ package com.jeff.shareapp.model;
  */
 
 public class UserinfoModel  implements java.io.Serializable {
-
+    private static final long serialVersionUID = -4549365291121821693L;
 
     // Fields    
 
