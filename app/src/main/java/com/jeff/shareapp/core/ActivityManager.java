@@ -54,6 +54,7 @@ public class ActivityManager {
     public void removeActivity(Activity activity) {
         if (activityStack == null || activityStack.size() <= 0)
             return;
+        activity.finish();
         activityStack.remove(activity);
     }
 

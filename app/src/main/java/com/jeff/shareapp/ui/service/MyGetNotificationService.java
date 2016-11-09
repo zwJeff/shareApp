@@ -75,15 +75,11 @@ public class MyGetNotificationService extends Service {
 
         mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
 
-        new MyVolley<Integer>(StaticFlag.GET_STUDENT_TASK_NEW, mParams, new MyVolleyListener() {
+        MyVolley.getMyVolley().addStringRequest(new TypeToken<Integer>(){}.getType(),StaticFlag.GET_STUDENT_TASK_NEW, mParams, new MyVolleyListener<Integer>() {
             @Override
-            public void onSuccess(Object data) {
-                Gson gson = FormatUtil.getFormatGson();
-                String jsonResult = gson.toJson(data);
-                Integer num = gson.fromJson(jsonResult, new TypeToken<Integer>() {
-                }.getType());
-                if (num > 0)
-                    showNotification(num);
+            public void onSuccess(Integer data) {
+                if (data > 0)
+                    showNotification(data);
             }
 
             @Override

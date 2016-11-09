@@ -1,65 +1,10 @@
 package com.jeff.shareapp.util;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.text.TextUtils;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class StringUtil {
-
-    private StringUtil() {
-    }
-
-    /**
-     * 将传递的key名等字符串统一放在此处
-     */
-    /**
-     * 校验字符串是否是中文姓名
-     *
-     * @param checkWords 待校验字符串
-     * @return true 此字符串中只有中文，false 此字符串中有非中文字符
-     */
-    public static boolean isChineseName(String checkWords) {
-        if (TextUtils.isEmpty(checkWords)) {
-            return false;
-        }
-        int len = checkWords.length();
-        if (len < 2 || len > 5) {
-            return false;
-        }
-        for (int i = 0; i < len; i++) {
-            char word = checkWords.charAt(i);
-            if (word < 0X4E00 || word > 0X9FA5) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * 验证字数是否超过16字
-     *
-     * @param str
-     * @return
-     */
-    public static boolean isOver16Words(String str) {
-        return str.length() > 16;
-    }
-
-    /**
-     * 验证字数是否超过200字
-     *
-     * @param str
-     * @return
-     */
-    public static boolean isOverWords(String str) {
-        return str.length() > 200;
-    }
 
     /**
      * 字符串超过一定长度加省略号
@@ -106,28 +51,7 @@ public class StringUtil {
         }
     }
 
-    /**
-     * 将姓名加密，张**
-     */
-    public static String encryptName(String s) {
-        if (s.length() > 1) {
-            String s1 = s.substring(1);
-            return s.replaceFirst(s1, "**");
-        } else {
-            return s;
-        }
-    }
 
-    /**
-     * 将名加密，张**
-     */
-    public static String encryptGivenName(String s) {
-        if (s.length() > 1) {
-            return s.substring(0, 1) + "**";
-        } else {
-            return s;
-        }
-    }
 
 
    public  static int fileType(String fileUrl) {

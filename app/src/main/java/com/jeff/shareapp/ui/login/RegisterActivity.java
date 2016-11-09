@@ -71,12 +71,8 @@ public class RegisterActivity extends BasicActivity implements OnClickListener {
             switch (msg.what) {
                 case StaticFlag.SUCCESS:
                     Toast.makeText(RegisterActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
-                    u.setToken(token);
-                    u.setUserType(userType);
-                    u.setUsername(registerName);
-                    u.setTelephone(registerTelephone);
                     MyApplication.getMyApplication().setUserinfo(u);
-                    MyApplication.getMyApplication().saveToPreference();
+                    MyApplication.getMyApplication().saveUserInfoToPreference();
 
                     finish();
                     MainActivity.startActivity(RegisterActivity.this);
@@ -211,7 +207,6 @@ public class RegisterActivity extends BasicActivity implements OnClickListener {
         mParams.put("password", registerPassword);
         mParams.put("user_type", userType + "");
         mParams.put("username", registerName);
-        mParams.put("token", token);
 
         new MyVolley<UserinfoModel>(StaticFlag.REGISTER, mParams,
                 new MyVolleyListener() {

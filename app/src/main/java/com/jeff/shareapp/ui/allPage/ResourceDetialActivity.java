@@ -112,15 +112,12 @@ public class ResourceDetialActivity extends BasicActivity implements View.OnClic
         mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
         mParams.put("resource_id", resourceId);
         startWait();
-        new MyVolley<CourseTypeModel>(StaticFlag.GET_RESOURCE_DETIAL, mParams,
-                new MyVolleyListener() {
+        MyVolley.getMyVolley().addStringRequest(new TypeToken<ResourceRespModel>(){}.getType(),StaticFlag.GET_RESOURCE_DETIAL, mParams,
+                new MyVolleyListener<ResourceRespModel>() {
                     @Override
-                    public void onSuccess(Object data) {
+                    public void onSuccess(ResourceRespModel data) {
 
-                        Gson gson = FormatUtil.getFormatGson();
-                        String jsonResult = gson.toJson(data);
-                        resource = gson.fromJson(jsonResult, new TypeToken<ResourceRespModel>() {
-                        }.getType());
+                        resource = data;
                         Message message = Message.obtain();
                         message.what = 1;
                         myHandler.sendMessage(message);

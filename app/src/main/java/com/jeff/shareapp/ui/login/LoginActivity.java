@@ -42,7 +42,6 @@ public class LoginActivity extends BasicActivity {
     private TextView registerBtn;
     private TextView getPasswordBackBtn;
 
-    private String token;
 
     private static final int LOGIN_SUCCESS=0;
     private final int LOGIN_FAILURE=1;
@@ -54,9 +53,8 @@ public class LoginActivity extends BasicActivity {
                 case LOGIN_SUCCESS:
                     Toast.makeText(LoginActivity.this,"登陆成功！",Toast.LENGTH_SHORT).show();
                     UserinfoModel u=(UserinfoModel) msg.getData().getSerializable("user_info");
-                    u.setToken(token);
                     MyApplication.getMyApplication().setUserinfo(u);
-                    MyApplication.getMyApplication().saveToPreference();
+                    MyApplication.getMyApplication().saveUserInfoToPreference();
                     MainActivity.startActivity(LoginActivity.this,StaticFlag.INDEXPAGE_FRAGMENT);
                     finish();
                     break;
@@ -154,27 +152,20 @@ public class LoginActivity extends BasicActivity {
     }
 
     private void loginToNet() {
-
-        token=creatToken();
         HashMap<String, String> mParams=new HashMap<String, String>();
         mParams.put("loginname",loginNameTextView.getText().toString().trim());
         mParams.put("password",mPasswordView.getText().toString().trim());
-        mParams.put("token",token);
 
         startWait();
-        new MyVolley<UserinfoModel>(StaticFlag.LOGIN, mParams,
-                new MyVolleyListener() {
+        MyVolley.getMyVolley().addStringRequest(new TypeToken<UserinfoModel>(){}.getType(),StaticFlag.LOGIN, mParams,
+                new MyVolleyListener<UserinfoModel>() {
                     @Override
-                    public void onSuccess(Object data) {
-                        Gson gson = FormatUtil.getFormatGson();
-                        String jsonResult = gson.toJson(data);
-                        UserinfoModel num = gson.fromJson(jsonResult, new TypeToken<UserinfoModel>() {
-                        }.getType());
+                    public void onSuccess(UserinfoModel data) {
 
                         Message message = Message.obtain();
                         message.what = LOGIN_SUCCESS;
                         Bundle b=new Bundle();
-                        b.putSerializable("user_info",num);
+                        b.putSerializable("user_info",data);
                         message.setData(b);
                         myHandler.sendMessage(message);
                     }
@@ -199,18 +190,9 @@ public class LoginActivity extends BasicActivity {
                         myHandler.sendMessage(message);
                     }
                 }
-        ) ;
+        ); ;
     }
 
-
-    /**
-     * 产生token
-     * @return
-     */
-    private String creatToken(){
-        UUID uid = UUID.randomUUID();
-        return uid.toString();
-    }
 
 
 }

@@ -182,7 +182,7 @@ public class UploadHeadPicActivity extends BasicActivity implements View.OnClick
                         user.setUserHeadUrl("headPic" + result);
                         upLoadImageUrl();
                         MyApplication.getMyApplication().setUserinfo(user);
-                        MyApplication.getMyApplication().saveToPreference();
+                        MyApplication.getMyApplication().saveUserInfoToPreference();
                         myHandler.sendMessage(message);
                     }
 

@@ -47,20 +47,29 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         singleInstance=this;
+        getUserInfoFromPreference();
+    }
+
+    /**
+     * 从缓存中读取用户信息
+     */
+    private void getUserInfoFromPreference(){
         userinfoSharePref=getSharedPreferences("userinfo",MODE_PRIVATE);
         userinfo=new UserinfoModel();
         userinfo.setTelephone(userinfoSharePref.getString("telephone",null));
         userinfo.setUserId(userinfoSharePref.getInt("user_id",0));
         userinfo.setToken(userinfoSharePref.getString("token",null));
         userinfo.setUsername(userinfoSharePref.getString("name",null));
-        userinfo.setPassword(userinfoSharePref.getString("password",null));
         userinfo.setEmail(userinfoSharePref.getString("email",null));
         userinfo.setUserHeadUrl(userinfoSharePref.getString("head_url",null));
         userinfo.setUserType(userinfoSharePref.getInt("type",StaticFlag.STUDENT_USER_TYPE));
 
     }
 
-    public void saveToPreference(){
+    /**
+     * 将用户信息存入缓存中
+     */
+    public void saveUserInfoToPreference(){
         SharedPreferences.Editor editor=userinfoSharePref.edit();
         editor.putString("telephone",userinfo.getTelephone());
         editor.putInt("user_id",userinfo.getUserId());

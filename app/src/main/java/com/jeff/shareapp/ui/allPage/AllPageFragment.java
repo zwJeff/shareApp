@@ -169,16 +169,12 @@ public class AllPageFragment extends Fragment implements XListView.IXListViewLis
         mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
 
         ((MainActivity) getActivity()).startWait();
-        new MyVolley<CourseTypeModel>(StaticFlag.GET_ALL_COURSE, mParams,
-                new MyVolleyListener() {
+        MyVolley.getMyVolley().addStringRequest(new TypeToken<List<CourseTypeModel>>(){}.getType(),StaticFlag.GET_ALL_COURSE, mParams,
+                new MyVolleyListener<List<CourseTypeModel>>() {
                     @Override
-                    public void onSuccess(Object data) {
+                    public void onSuccess(List<CourseTypeModel> data) {
 
-                        Gson gson = FormatUtil.getFormatGson();
-                        String jsonResult = gson.toJson(data);
-                        courseList = gson.fromJson(jsonResult, new TypeToken<List<CourseTypeModel>>() {
-                        }.getType());
-
+                        courseList =data;
                         Message message = Message.obtain();
                         message.what = 1;
                         myHandler.sendMessage(message);
@@ -217,15 +213,11 @@ public class AllPageFragment extends Fragment implements XListView.IXListViewLis
         mParams.put("resource_file_type", fileType + "");
         mParams.put("page_count", page_count + "");
         mParams.put("page_number", page_num + "");
-        new MyVolley<CourseTypeModel>(StaticFlag.GET_RESOURCE_LIST, mParams,
-                new MyVolleyListener() {
+        MyVolley.getMyVolley().addStringRequest(new TypeToken<List<ResourceRespModel>>(){}.getType(),StaticFlag.GET_RESOURCE_LIST, mParams,
+                new MyVolleyListener<List<ResourceRespModel>>() {
                     @Override
-                    public void onSuccess(Object data) {
-
-                        Gson gson = FormatUtil.getFormatGson();
-                        String jsonResult = gson.toJson(data);
-                        resourceList = gson.fromJson(jsonResult, new TypeToken<List<ResourceRespModel>>() {
-                        }.getType());
+                    public void onSuccess(List<ResourceRespModel> data) {
+                        resourceList = data;
 
                         Message message = Message.obtain();
                         message.what = 2;

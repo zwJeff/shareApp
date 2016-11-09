@@ -38,7 +38,7 @@ public class WelcomeActivity extends BasicActivity {
                     UserinfoModel u = (UserinfoModel) msg.getData().getSerializable("user_info");
                     u.setToken(token);
                     MyApplication.getMyApplication().setUserinfo(u);
-                    MyApplication.getMyApplication().saveToPreference();
+                    MyApplication.getMyApplication().saveUserInfoToPreference();
                     MainActivity.startActivity(WelcomeActivity.this);
                     finish();
                     break;
@@ -88,20 +88,14 @@ public class WelcomeActivity extends BasicActivity {
         }
         HashMap<String, String> mParams = new HashMap<String, String>();
         mParams.put("token", token);
-        new MyVolley<UserinfoModel>(StaticFlag.AUTO_LOGIN, mParams,
-                new MyVolleyListener() {
+        MyVolley.getMyVolley().addStringRequest(new TypeToken<UserinfoModel>(){}.getType(),StaticFlag.AUTO_LOGIN, mParams,
+                new MyVolleyListener<UserinfoModel>() {
                     @Override
-                    public void onSuccess(Object data) {
-
-                        Gson gson = FormatUtil.getFormatGson();
-                        String jsonResult = gson.toJson(data);
-                        UserinfoModel d = gson.fromJson(jsonResult, new TypeToken<UserinfoModel>() {
-                        }.getType());
-
+                    public void onSuccess(UserinfoModel data) {
                         Message message = Message.obtain();
                         message.what = StaticFlag.SUCCESS;
                         Bundle b = new Bundle();
-                        b.putSerializable("user_info", d);
+                        b.putSerializable("user_info", data);
                         message.setData(b);
                         myHandler.sendMessage(message);
                     }

@@ -176,11 +176,10 @@ public class ChangePasswordActivity extends BasicActivity implements OnClickList
         mParams.put("new_password", newLoginPassword);
         mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
 
-        new MyVolley(StaticFlag.CHANGE_PASSWORD, mParams,
+         MyVolley.getMyVolley().addStringRequest(new TypeToken<Object>(){}.getType(),StaticFlag.CHANGE_PASSWORD, mParams,
                 new MyVolleyListener() {
                     @Override
                     public void onSuccess(Object data) {
-
 
                         Message message = Message.obtain();
                         message.what = StaticFlag.SUCCESS;

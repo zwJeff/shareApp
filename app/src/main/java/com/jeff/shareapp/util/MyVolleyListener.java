@@ -6,7 +6,7 @@ package com.jeff.shareapp.util;
  */
 public interface MyVolleyListener <T>{
 
-    void onSuccess(Object data);
+    void onSuccess(T data);
     void onFailure(int failureCode,String failureMessage);
     void onError(int errorCode,String errorMessage);
 

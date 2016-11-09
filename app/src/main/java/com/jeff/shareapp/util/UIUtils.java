@@ -24,12 +24,6 @@ import com.jeff.shareapp.R;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-/**
- * UI相关
- *
- * @author ly
- * @version v1.0 2013-5-1 09:30
- */
 public class UIUtils {
 
     /**
@@ -41,17 +35,6 @@ public class UIUtils {
         activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
     }
 
-    public static void fadeInOut(Activity activity) {
-        activity.overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
-    }
-
-    public static void fadeOutIn(Activity activity) {
-        activity.overridePendingTransition(R.anim.alpha_in_start, R.anim.alpha_out);
-    }
-
-    /**
-     * 淡入淡出效果  fade-in fade-out
-     */
 
     /**
      * 界面前进动画效果
@@ -91,26 +74,6 @@ public class UIUtils {
         return (int) (dipValue * context.getResources().getDisplayMetrics().density + 0.5f);
     }
 
-    /**
-     * 计算并设置listview的高度
-     *
-     * @param listView
-     */
-    public static void setListViewHeight(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-        int totalHeight = 0;
-        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-    }
 
 
     /**
