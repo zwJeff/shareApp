@@ -1,4 +1,4 @@
-package com.jeff.shareapp.util;
+package com.jeff.shareapp.net;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,13 +10,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.ResponseEntivity.MyResponse;
-
-import org.json.JSONObject;
+import com.jeff.shareapp.model.UserinfoModel;
+import com.jeff.shareapp.util.FormatUtil;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.util.StaticFlag;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -26,7 +27,7 @@ import java.util.Map;
  * Created by 张武 on 2016/5/28.
  */
 
-public class MyVolley <T>{
+public class MyVolley<T> {
 
     public static RequestQueue requestQueue;
 
@@ -41,20 +42,33 @@ public class MyVolley <T>{
             mMyVolley = new MyVolley();
         return mMyVolley;
     }
-    public MyVolley(){
+
+    public MyVolley() {
 
     }
 
     /**
-     * 新接口废弃，就借口待改造
+     * 新接口废弃，旧借口待改造
+     *
      * @param url
      * @param params
      * @param mListener
      */
+    @Deprecated
     public MyVolley(String url, final HashMap<String, String> params, final MyVolleyListener mListener) {
         //打印请求地址
+
+        UserinfoModel u = MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
+        String token;
+        if (u != null)
+            token = u.getToken();
+        else token="";
+        params.put("token",token);
+
         Log.i("jeff", "MyVolley请求地址：  " + url);
         Log.i("jeff", "MyVolley参数：" + gson.toJson(params));
+
+
         mRequest = new StringRequest(Request.Method.POST,
                 url,
                 new Response.Listener<String>() {
@@ -97,7 +111,16 @@ public class MyVolley <T>{
         requestQueue.add(mRequest);
     }
 
-    public void addStringRequest(final Type mType,String url, final HashMap<String, String> params,  final MyVolleyListener<T> mListener) {
+    public void addStringRequest(final Type mType, String url, final HashMap<String, String> params, final MyVolleyListener<T> mListener) {
+
+
+        UserinfoModel u = MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
+        String token;
+        if (u != null)
+            token = u.getToken();
+        else token="";
+        params.put("token",token);
+
         //打印请求地址
         Log.i("jeff", "MyVolley请求地址：  " + url);
         Log.i("jeff", "MyVolley参数：" + gson.toJson(params));
@@ -115,7 +138,7 @@ public class MyVolley <T>{
                             Gson gson = FormatUtil.getFormatGson();
                             String jsonResult = gson.toJson(myResponse.getResult());
                             ;
-                            mListener.onSuccess((T)gson.fromJson(jsonResult,mType));
+                            mListener.onSuccess((T) gson.fromJson(jsonResult, mType));
                         } else
                             mListener.onFailure(myResponse.getStatus(), myResponse.getMessage());
                         //token过期
@@ -145,7 +168,6 @@ public class MyVolley <T>{
         mRequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, 1.0f));
         requestQueue.add(mRequest);
     }
-
 
 
 }

@@ -1,12 +1,10 @@
 package com.jeff.shareapp.ui.myPage;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -15,18 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
+import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
 import com.jeff.shareapp.ui.CustomVIew.MyDialog;
 import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
-import com.jeff.shareapp.ui.MainActivity;
-import com.jeff.shareapp.ui.login.GetPasswordBackActivity;
 import com.jeff.shareapp.ui.login.LoginActivity;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 
@@ -174,7 +170,7 @@ public class ChangePasswordActivity extends BasicActivity implements OnClickList
         startWait();
         HashMap<String, String> mParams = new HashMap<String, String>();
         mParams.put("new_password", newLoginPassword);
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
 
          MyVolley.getMyVolley().addStringRequest(new TypeToken<Object>(){}.getType(),StaticFlag.CHANGE_PASSWORD, mParams,
                 new MyVolleyListener() {

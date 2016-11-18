@@ -57,7 +57,7 @@ public class MyDialog extends Dialog {
     }
 
     public void showDiglog() {
-        show();
+        this.show();
     }
 
     public void setContentText(String contentText) {

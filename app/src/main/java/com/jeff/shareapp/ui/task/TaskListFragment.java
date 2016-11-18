@@ -14,24 +14,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
-import com.jeff.shareapp.adapter.ResourceListAdapter;
 import com.jeff.shareapp.adapter.TaskListAdapter;
 import com.jeff.shareapp.model.CourseTypeModel;
-import com.jeff.shareapp.model.TaskModel;
 import com.jeff.shareapp.model.TaskRespModel;
+import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.markmao.pulltorefresh.widget.XListView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -250,13 +247,12 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
     private void getTaskList() {
 
         String url;
-        if (MyApplication.getMyApplication().getUserinfo().getUserType() == StaticFlag.TEACHER_USER_TYPE)
+        if (MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class).getUserType() == StaticFlag.TEACHER_USER_TYPE)
             url = StaticFlag.TEACHER_GET_TASK_LIST;
         else
             url = StaticFlag.STUDENT_GET_TASK_LIST;
 
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
         mParams.put("task_statu", labFlag + "");
         mParams.put("page_num", page_num + "");
         mParams.put("page_count", page_count + "");

@@ -1,27 +1,21 @@
 package com.jeff.shareapp.ui.myPage;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.model.UserinfoModel;
-import com.jeff.shareapp.ui.BasicActivity;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyImageLoader;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyImageLoader;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -64,7 +58,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_page, container, false);
         ButterKnife.inject(this, view);
-        user= MyApplication.getMyApplication().getUserinfo();
+        user= MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
         initView();
         return view;
 

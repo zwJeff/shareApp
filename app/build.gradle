@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion 24
     buildToolsVersion "25"
@@ -11,25 +10,138 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+    signingConfigs {
+        release {          //release版签名
+            storeFile file('E:/AndroidStudioProj/shareApp.jeff')
+            storePassword 'zhangwu'
+            keyAlias 'android.keystore'
+            keyPassword "123456"
+            v2SigningEnabled false
+        }
+        debug {             //debug版签名
+            storeFile file('E:/AndroidStudioProj/shareApp.jeff')
+            storePassword 'zhangwu'
+            keyAlias 'android.keystore'
+            keyPassword "123456"
+            v2SigningEnabled false
         }
     }
+
+    buildTypes {
+        release {
+            buildConfigField("String", "SERVER_ADDRESS", "\"http://wuzhang.win:8080\"")
+            //设置是否生成debug版的APK
+            debuggable true
+            //配置当前buildType的签名信息
+            signingConfig signingConfigs.release
+            //是否开启混淆
+            minifyEnabled true
+            //配置混淆文件
+            proguardFiles 'proguard.cfg'
+            //是否zip对齐
+            zipAlignEnabled true
+            //移除未使用的资源
+            shrinkResources true
+        }
+        debug {
+            buildConfigField("String", "SERVER_ADDRESS", "\"http://10.106.143.14:8080\"")
+            //设置是否生成debug版的APK
+            debuggable true
+            //配置当前buildType的签名信息
+            signingConfig signingConfigs.debug
+            //是否开启混淆
+            minifyEnabled false
+            //配置混淆文件
+            proguardFiles 'proguard.cfg'
+            //是否zip对齐
+            zipAlignEnabled false
+            //移除未使用的资源
+            shrinkResources false
+        }
+        dev_aliyun {
+            buildConfigField("String", "SERVER_ADDRESS", "\"http://wuzhang.win:8080\"")
+            //设置是否生成debug版的APK
+            debuggable false
+            //配置当前buildType的签名信息
+            signingConfig signingConfigs.debug
+            //是否开启混淆
+            minifyEnabled false
+            //是否zip对齐
+            zipAlignEnabled false
+            //移除未使用的资源
+            shrinkResources false
+            //配置混淆文件
+            proguardFile 'proguard.cfg'
+        }
+        dev_company {
+            buildConfigField("String", "SERVER_ADDRESS", "\"http://10.106.143.14:8080\"")
+            //设置是否生成debug版的APK
+            debuggable true
+            //配置当前buildType的签名信息
+            signingConfig signingConfigs.release
+            //是否开启混淆
+            minifyEnabled false
+            //配置混淆文件
+            proguardFile 'E:/AndroidStudioProj/android/shareApp/app/proguard.cfg'
+            //是否zip对齐
+            zipAlignEnabled false
+            //移除未使用的资源
+            shrinkResources false
+        }
+    }
+
+//修改生成的文件
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def formattedDate = new Date().format('yyyyMMdd')
+            def fileName
+            if (variant.buildType.name == "release") {
+                //输出apk名称改为ShareApp_10_20160305.apk
+                fileName = "ShareApp_${defaultConfig.versionCode}_${formattedDate}_release.apk"
+            } else if (variant.buildType.name == "debug") {
+                //输出apk名称改为ShareApp_10_20160305_debug.apk
+                fileName = "ShareApp_${defaultConfig.versionCode}_${formattedDate}_debug.apk"
+            } else if (variant.buildType.name == "dev_aliyun") {
+                //输出apk名称改为ShareApp_10_20160305_dev.apk
+                fileName = "ShareApp_${defaultConfig.versionCode}_${formattedDate}_dev_aliyun.apk"
+            } else if (variant.buildType.name == "dev_company") {
+                //输出apk名称改为ShareApp_10_20160305_dev.apk
+                fileName = "ShareApp_${defaultConfig.versionCode}_${formattedDate}_dev_company.apk"
+            } else
+                fileName = "ShareApp_${defaultConfig.versionCode}_${formattedDate}_else.apk"
+
+            //输出apk文件
+            output.outputFile = new File(output.outputFile.parent, fileName)
+
+            //将apk复制到指定文件夹
+            if (variant.buildType.name == "release") {
+                copy {
+                    from('build/outputs/apk')
+                    into('C:/apkOutput/')
+                    include(fileName)
+                }
+            }
+
+
+        }
+
+
+    }
+
+    dependencies {
+        compile fileTree(include: ['*.jar'], dir: 'libs')
+        compile project(path: ':PullToRefresh')
+        compile 'com.android.support:appcompat-v7:24.0.0'
+        compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+        compile 'com.jakewharton:butterknife:6.1.0'
+        compile 'com.android.support:design:24.0.0'
+        compile 'com.makeramen:roundedimageview:2.2.1'
+        compile 'com.android.support:support-v4:24.0.0'
+        compile 'com.mcxiaoke.volley:library:1.0.19'
+        compile 'com.google.code.gson:gson:2.6.2'
+        compile 'de.greenrobot:eventbus:2.4.0'
+    }
 }
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
-    compile project(path: ':PullToRefresh')
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'com.android.support:design:24.0.0'
-    compile 'com.makeramen:roundedimageview:2.2.1'
-    compile 'com.android.support:support-v4:24.0.0'
-    compile 'com.mcxiaoke.volley:library:1.0.19'
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'de.greenrobot:eventbus:2.4.0'
 }

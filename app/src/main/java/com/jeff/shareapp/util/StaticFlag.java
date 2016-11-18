@@ -1,5 +1,7 @@
 package com.jeff.shareapp.util;
 
+import com.jeff.shareapp.BuildConfig;
+
 /**
  * Created by 张武 on 2016/5/19.
  */
@@ -42,27 +44,16 @@ public class StaticFlag {
     //token过期代码
     public final static int TOKEN_EXPIRE = 440;
 
-    //服务器地址
+    //接口服务地址
+    public final static String SERVICE = BuildConfig.SERVER_ADDRESS + "/shareApp/";
+    //文件加载地址
+    public final static String FILE_URL = BuildConfig.SERVER_ADDRESS + "/upload/";
 
-    //阿里云
-    public final static String HOST = "http://114.215.137.58:8080";
-    //家里
-    //public final static String HOST = "http://192.168.31.105:8080";
-    //笔记本放wifi
-    //public final static String HOST = "http://192.168.191.1:8080";
-    //公司
-    //public final static String HOST = "http://10.106.138.24:8080";
 
-    public final static String SERVICE = HOST + "/shareApp/";
-
-    //各接口访问地址
 
     //文件上传
-
     public final static String UPLOAD = SERVICE + "upload.do";
     public final static String UPLOAD_IMAGE = SERVICE + "upload_image.do";
-    //文件加载地址
-    public final static String FILE_URL = HOST + "/upload/";
 
 
     //获取主页数据

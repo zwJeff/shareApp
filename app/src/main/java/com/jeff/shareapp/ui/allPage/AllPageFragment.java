@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.gson.Gson;
+
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.adapter.CourseTypeAdapter;
@@ -22,10 +22,8 @@ import com.jeff.shareapp.adapter.ResourceListAdapter;
 import com.jeff.shareapp.model.CourseTypeModel;
 import com.jeff.shareapp.model.ResourceRespModel;
 import com.jeff.shareapp.ui.MainActivity;
-import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.markmao.pulltorefresh.widget.XListView;
 
@@ -108,7 +106,7 @@ public class AllPageFragment extends Fragment implements XListView.IXListViewLis
                         if(resourceList.size()==0){
                             Toast.makeText(getContext(),"全部加载完毕！",Toast.LENGTH_LONG).show();
                         }
-                        mAdapter.addDataLiat(resourceList);
+                        mAdapter.addDataList(resourceList);
                     }
                     break;
 
@@ -166,7 +164,7 @@ public class AllPageFragment extends Fragment implements XListView.IXListViewLis
 
     private void getAllCourse() {
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
 
         ((MainActivity) getActivity()).startWait();
         MyVolley.getMyVolley().addStringRequest(new TypeToken<List<CourseTypeModel>>(){}.getType(),StaticFlag.GET_ALL_COURSE, mParams,
@@ -207,7 +205,7 @@ public class AllPageFragment extends Fragment implements XListView.IXListViewLis
 
     private void getResourceList() {
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
         mParams.put("resource_course_type", courseType + "");
         mParams.put("sort_type", sortType + "");
         mParams.put("resource_file_type", fileType + "");

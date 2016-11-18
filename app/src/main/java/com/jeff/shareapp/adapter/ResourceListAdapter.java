@@ -10,17 +10,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
-import com.jeff.shareapp.model.ResourceModel;
 import com.jeff.shareapp.model.ResourceRespModel;
-import com.jeff.shareapp.ui.allPage.ResourceDetialActivity;
+import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyImageLoader;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 
@@ -106,7 +102,7 @@ public class ResourceListAdapter extends BaseAdapter {
     }
 
 
-    public void addDataLiat(List<ResourceRespModel> dataList) {
+    public void addDataList(List<ResourceRespModel> dataList) {
         resourceList.addAll(dataList);
         notifyDataSetChanged();
     }
@@ -135,7 +131,7 @@ public class ResourceListAdapter extends BaseAdapter {
     private void collectResource(String resource_id) {
         final String[] msg = new String[1];
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
         mParams.put("resource_id", resource_id);
 
         new MyVolley<String>(StaticFlag.COLLECT, mParams,

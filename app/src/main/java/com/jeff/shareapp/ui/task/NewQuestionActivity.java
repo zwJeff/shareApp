@@ -22,16 +22,14 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
-import com.jeff.shareapp.model.QuestionModel;
 import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
 import com.jeff.shareapp.ui.CustomVIew.MyDialog;
 import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
-import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 
@@ -271,7 +269,7 @@ public class NewQuestionActivity extends BasicActivity implements View.OnClickLi
     private void addQuestion() {
 
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
         mParams.put("question_description", questionDescribe.getText().toString());
         mParams.put("description_type", questionType + "");
         mParams.put("answer_a", questionAnswerA.getText().toString());
@@ -325,7 +323,7 @@ public class NewQuestionActivity extends BasicActivity implements View.OnClickLi
     private void newTaskPaper() {
 
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
         mParams.put("question0_id", questions.get(0) + "");
         mParams.put("question1_id", questions.get(1) + "");
         mParams.put("question2_id", questions.get(2) + "");

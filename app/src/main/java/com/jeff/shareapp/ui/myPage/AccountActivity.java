@@ -1,7 +1,6 @@
 package com.jeff.shareapp.ui.myPage;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,8 +11,8 @@ import com.jeff.shareapp.R;
 import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
 import com.jeff.shareapp.ui.login.GetPasswordBackActivity;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyImageLoader;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyImageLoader;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.StringUtil;
 import com.jeff.shareapp.util.UIUtils;
@@ -46,7 +45,7 @@ public class AccountActivity extends BasicActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         ButterKnife.inject(this);
-        user= MyApplication.getMyApplication().getUserinfo();
+        user= MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
         initView();
     }
 

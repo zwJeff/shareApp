@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,15 +24,14 @@ import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
 import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.ui.index.ResourceUploadActivity;
 import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -224,7 +222,7 @@ public class NewTaskActivity extends BasicActivity implements View.OnClickListen
     private void saveTask() {
 
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
         mParams.put("resource_id", resourceId + "");
         mParams.put("paper_id", testPaperId + "");
         mParams.put("task_name", taskName);

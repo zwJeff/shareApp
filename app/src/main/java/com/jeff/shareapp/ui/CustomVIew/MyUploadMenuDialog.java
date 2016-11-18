@@ -8,7 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.jeff.shareapp.R;
-import com.jeff.shareapp.util.MyApplication;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.util.StaticFlag;
 
 /**
@@ -54,7 +55,7 @@ public class MyUploadMenuDialog extends Dialog {
             }
         });
 
-        if(MyApplication.getMyApplication().getUserinfo().getUserType()== StaticFlag.STUDENT_USER_TYPE)
+        if(MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class).getUserType()== StaticFlag.STUDENT_USER_TYPE)
             menu2.setVisibility(View.GONE);
 
     }

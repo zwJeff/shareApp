@@ -2,12 +2,9 @@ package com.jeff.shareapp.ui.index;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,27 +20,23 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
-import com.jeff.shareapp.ResponseEntivity.MyResponse;
 import com.jeff.shareapp.model.CourseTypeModel;
-import com.jeff.shareapp.model.ResourceModel;
+import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
 import com.jeff.shareapp.ui.CustomVIew.MyDialog;
 import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
 import com.jeff.shareapp.ui.MainActivity;
-import com.jeff.shareapp.ui.login.RegisterActivity;
-import com.jeff.shareapp.ui.myPage.ChangePasswordActivity;
 import com.jeff.shareapp.ui.task.NewTaskActivity;
 import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.StringUtil;
 import com.jeff.shareapp.util.UIUtils;
-import com.jeff.shareapp.util.UploadUtil;
+import com.jeff.shareapp.net.UploadUtil;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -186,7 +179,7 @@ public class ResourceUploadActivity extends BasicActivity implements View.OnClic
     private void initCourzeTypeData() {
 
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
 
         startWait();
         new MyVolley<CourseTypeModel>(StaticFlag.GET_ALL_COURSE, mParams,
@@ -274,7 +267,6 @@ public class ResourceUploadActivity extends BasicActivity implements View.OnClic
         String resourceName = upload_resource_name.getText().toString();
         String resourceDescribe = upload_resource_describe.getText().toString();
         int courseId = mCourseTypeSpinner.getSelectedItemPosition();
-        String token = MyApplication.getMyApplication().getUserinfo().getToken();
 
         if (TextUtils.isEmpty(resourceName)) {
 
@@ -290,7 +282,6 @@ public class ResourceUploadActivity extends BasicActivity implements View.OnClic
         } else {
             startWait();
             HashMap<String, String> mParams = new HashMap<String, String>();
-            mParams.put("token", token);
             mParams.put("resource_name", resourceName);
             mParams.put("resource_url", fileUrl);
             mParams.put("resource_describe", resourceDescribe);

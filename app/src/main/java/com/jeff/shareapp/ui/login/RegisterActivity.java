@@ -1,6 +1,5 @@
 package com.jeff.shareapp.ui.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -23,9 +22,9 @@ import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
 import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.StringUtil;
 import com.jeff.shareapp.util.UIUtils;
@@ -71,8 +70,8 @@ public class RegisterActivity extends BasicActivity implements OnClickListener {
             switch (msg.what) {
                 case StaticFlag.SUCCESS:
                     Toast.makeText(RegisterActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
-                    MyApplication.getMyApplication().setUserinfo(u);
-                    MyApplication.getMyApplication().saveUserInfoToPreference();
+                    MyApplication.getMyApplication().getDataPref().addToLocalData(u);
+                    MyApplication.getMyApplication().getDataPref().pushToPref(u);
 
                     finish();
                     MainActivity.startActivity(RegisterActivity.this);
@@ -201,7 +200,6 @@ public class RegisterActivity extends BasicActivity implements OnClickListener {
 
     private void register() {
         startWait();
-        token = creatToken();
         HashMap<String, String> mParams = new HashMap<String, String>();
         mParams.put("telephone", registerTelephone);
         mParams.put("password", registerPassword);

@@ -8,32 +8,26 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
-import com.jeff.shareapp.adapter.ShareRecordListAdapter;
-import com.jeff.shareapp.model.CourseTypeModel;
-import com.jeff.shareapp.model.ResourceModel;
 import com.jeff.shareapp.model.ResourceRespModel;
+import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
 import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -109,7 +103,7 @@ public class ResourceDetialActivity extends BasicActivity implements View.OnClic
 
     private void getData() {
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
         mParams.put("resource_id", resourceId);
         startWait();
         MyVolley.getMyVolley().addStringRequest(new TypeToken<ResourceRespModel>(){}.getType(),StaticFlag.GET_RESOURCE_DETIAL, mParams,
@@ -237,7 +231,7 @@ public class ResourceDetialActivity extends BasicActivity implements View.OnClic
     private void collectResource() {
         final String[] msg = new String[1];
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
         mParams.put("resource_id", resourceId + "");
 
         new MyVolley<String>(StaticFlag.COLLECT, mParams,

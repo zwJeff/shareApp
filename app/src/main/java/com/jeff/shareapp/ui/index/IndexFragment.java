@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.model.CourseTypeModel;
@@ -29,10 +28,10 @@ import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.ui.allPage.ResourceDetialActivity;
 import com.jeff.shareapp.ui.task.NewTaskActivity;
 import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyImageLoader;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyImageLoader;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 import com.markmao.pulltorefresh.widget.XScrollView;
@@ -157,7 +156,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
 
     private void getHotResourceList() {
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
 
         new MyVolley<UserinfoModel>(StaticFlag.GET_HOT_RESOUSE, mParams,
                 new MyVolleyListener() {
@@ -199,7 +198,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
 
     private void getCourseList() {
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
 
         new MyVolley<CourseTypeModel>(StaticFlag.GET_INDEX_COURSE, mParams,
                 new MyVolleyListener() {
@@ -242,7 +241,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
     private void getNewsPicList() {
 
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
 
         new MyVolley<UserinfoModel>(StaticFlag.GET_NEWS_PICTURES_LIST, mParams,
                 new MyVolleyListener() {

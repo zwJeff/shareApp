@@ -15,10 +15,10 @@ import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
 import com.jeff.shareapp.ui.login.LoginActivity;
 import com.jeff.shareapp.ui.service.MyGetNotificationService;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyImageLoader;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyImageLoader;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.StringUtil;
 import com.jeff.shareapp.util.UIUtils;
@@ -82,7 +82,7 @@ public class SettingActivity extends BasicActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.inject(this);
-        user = MyApplication.getMyApplication().getUserinfo();
+        user = MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
         initView();
     }
 
@@ -115,7 +115,7 @@ public class SettingActivity extends BasicActivity implements View.OnClickListen
         startWait();
 
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
 
         new MyVolley<UserinfoModel>(StaticFlag.LOGOUT, mParams,
                 new MyVolleyListener() {

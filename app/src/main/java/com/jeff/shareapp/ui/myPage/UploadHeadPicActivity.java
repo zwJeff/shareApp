@@ -2,14 +2,10 @@ package com.jeff.shareapp.ui.myPage;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,29 +13,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
-import com.jeff.shareapp.model.PictureListModel;
 import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
-import com.jeff.shareapp.ui.CustomVIew.MyDialog;
-import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
 import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.ui.index.FileUploadListener;
-import com.jeff.shareapp.ui.task.NewTaskActivity;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyImageLoader;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyImageLoader;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
-import com.jeff.shareapp.util.UploadUtil;
+import com.jeff.shareapp.net.UploadUtil;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -104,7 +93,7 @@ public class UploadHeadPicActivity extends BasicActivity implements View.OnClick
     }
 
     private void initView() {
-        user = MyApplication.getMyApplication().getUserinfo();
+        user = MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
         if (user.getUserHeadUrl() != null) {
             new MyImageLoader(this).loadImage(StaticFlag.FILE_URL + user.getUserHeadUrl(), uploadImageView);
         }
@@ -181,8 +170,8 @@ public class UploadHeadPicActivity extends BasicActivity implements View.OnClick
                         message.what = StaticFlag.UPLOAD_SUCCESS;
                         user.setUserHeadUrl("headPic" + result);
                         upLoadImageUrl();
-                        MyApplication.getMyApplication().setUserinfo(user);
-                        MyApplication.getMyApplication().saveUserInfoToPreference();
+                        MyApplication.getMyApplication().getDataPref().addToLocalData(user);
+                        MyApplication.getMyApplication().getDataPref().pushToPref(user);
                         myHandler.sendMessage(message);
                     }
 
@@ -202,7 +191,7 @@ public class UploadHeadPicActivity extends BasicActivity implements View.OnClick
     private void upLoadImageUrl() {
 
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
         mParams.put("user_picture_url", user.getUserHeadUrl());
 
         new MyVolley<UserinfoModel>(StaticFlag.UPLOAD_IMAGE_URL, mParams,

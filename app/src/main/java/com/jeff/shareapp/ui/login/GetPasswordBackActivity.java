@@ -23,12 +23,11 @@ import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
 import com.jeff.shareapp.ui.CustomVIew.MyDialog;
 import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
-import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.ui.myPage.ChangePasswordActivity;
 import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.StringUtil;
 import com.jeff.shareapp.util.UIUtils;
@@ -198,7 +197,7 @@ public class GetPasswordBackActivity extends BasicActivity implements OnClickLis
         HashMap<String, String> mParams = new HashMap<String, String>();
         mParams.put("telephone", getPasswordBackTelephone);
         mParams.put("username", getPasswordBackName);
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
 
         new MyVolley(StaticFlag.CHECK_NAME_PHONE, mParams,
                 new MyVolleyListener() {

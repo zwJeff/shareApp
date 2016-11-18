@@ -10,15 +10,14 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
+import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.MainActivity;
-import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import java.util.HashMap;
 
@@ -73,7 +72,7 @@ public class MyGetNotificationService extends Service {
 
         HashMap<String, String> mParams = new HashMap<String, String>();
 
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
 
         MyVolley.getMyVolley().addStringRequest(new TypeToken<Integer>(){}.getType(),StaticFlag.GET_STUDENT_TASK_NEW, mParams, new MyVolleyListener<Integer>() {
             @Override

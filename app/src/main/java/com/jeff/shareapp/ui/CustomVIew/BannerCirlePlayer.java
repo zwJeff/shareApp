@@ -5,16 +5,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.adapter.BannerCircleAdapter;
-import com.jeff.shareapp.util.MyImageLoader;
+import com.jeff.shareapp.net.MyImageLoader;
 
 import java.util.List;
 import java.util.Timer;

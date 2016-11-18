@@ -2,32 +2,26 @@ package com.jeff.shareapp.ui.myPage;
 
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
-import com.jeff.shareapp.adapter.ResourceListAdapter;
 import com.jeff.shareapp.adapter.ShareRecordListAdapter;
 import com.jeff.shareapp.model.CourseTypeModel;
-import com.jeff.shareapp.model.ResourceModel;
 import com.jeff.shareapp.model.ResourceRespModel;
-import com.jeff.shareapp.model.TaskRespModel;
+import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
-import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.ui.allPage.ResourceDetialActivity;
 import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.markmao.pulltorefresh.widget.XListView;
 
@@ -111,7 +105,7 @@ public class ShareRecordActivity extends BasicActivity implements XListView.IXLi
     private void geRecordList() {
 
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
         mParams.put("page_num", page_num + "");
         mParams.put("page_count", page_count + "");
         startWait();

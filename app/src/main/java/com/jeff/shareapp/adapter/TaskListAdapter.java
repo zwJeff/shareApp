@@ -10,11 +10,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jeff.shareapp.R;
-import com.jeff.shareapp.model.ResourceModel;
-import com.jeff.shareapp.model.TaskModel;
 import com.jeff.shareapp.model.TaskRespModel;
+import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
+import com.jeff.shareapp.core.MyApplication;
 import com.jeff.shareapp.util.StaticFlag;
 
 import java.util.List;
@@ -72,7 +71,7 @@ public class TaskListAdapter extends BaseAdapter {
 
         TaskRespModel t = taskList.get(position);
 
-        if (MyApplication.getMyApplication().getUserinfo().getUserType() == StaticFlag.TEACHER_USER_TYPE)
+        if (MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class).getUserType() == StaticFlag.TEACHER_USER_TYPE)
             teacherFillData(t, viewHolder);
         else
             studentFillData(t, viewHolder);

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -15,20 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
-import java.util.UUID;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
-import com.jeff.shareapp.ui.CustomVIew.MyDialog;
-import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
 import com.jeff.shareapp.ui.MainActivity;
-import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 
@@ -53,8 +47,8 @@ public class LoginActivity extends BasicActivity {
                 case LOGIN_SUCCESS:
                     Toast.makeText(LoginActivity.this,"登陆成功！",Toast.LENGTH_SHORT).show();
                     UserinfoModel u=(UserinfoModel) msg.getData().getSerializable("user_info");
-                    MyApplication.getMyApplication().setUserinfo(u);
-                    MyApplication.getMyApplication().saveUserInfoToPreference();
+                    MyApplication.getMyApplication().getDataPref().addToLocalData(u);
+                    MyApplication.getMyApplication().getDataPref().pushToPref(u);
                     MainActivity.startActivity(LoginActivity.this,StaticFlag.INDEXPAGE_FRAGMENT);
                     finish();
                     break;

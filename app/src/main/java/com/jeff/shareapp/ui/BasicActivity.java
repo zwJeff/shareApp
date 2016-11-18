@@ -16,8 +16,8 @@ import com.jeff.shareapp.ui.CustomVIew.MyDialog;
 import com.jeff.shareapp.ui.CustomVIew.MyWaitDialog;
 import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
 import com.jeff.shareapp.ui.login.LoginActivity;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
 import com.jeff.shareapp.util.StringUtil;
 import com.jeff.shareapp.util.UIUtils;
 
@@ -172,8 +172,8 @@ public abstract class BasicActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         synchronized (synchronizeObject) {
-            if (!isReciev) {
-                isReciev = true;
+            if (isReciev) {
+                isReciev = false;
                 unregisterReceiver(broadcastReceiver);
             }
         }

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.jeff.shareapp.util.MyImageLoader;
+import com.jeff.shareapp.net.MyImageLoader;
 
 import java.util.List;
 

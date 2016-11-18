@@ -3,6 +3,8 @@ package com.jeff.shareapp.util;
 import android.app.ActivityManager;
 import android.content.Context;
 
+import com.jeff.shareapp.core.MyApplication;
+
 
 public class StringUtil {
 

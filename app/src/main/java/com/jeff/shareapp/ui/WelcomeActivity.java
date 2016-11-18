@@ -8,23 +8,19 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.login.LoginActivity;
-import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 
 import java.util.HashMap;
 
 public class WelcomeActivity extends BasicActivity {
-
-    private String token;
 
 
     public Handler myHandler = new Handler() {
@@ -36,9 +32,8 @@ public class WelcomeActivity extends BasicActivity {
                     } catch (Exception e) {
                     }
                     UserinfoModel u = (UserinfoModel) msg.getData().getSerializable("user_info");
-                    u.setToken(token);
-                    MyApplication.getMyApplication().setUserinfo(u);
-                    MyApplication.getMyApplication().saveUserInfoToPreference();
+                    MyApplication.getMyApplication().getDataPref().addToLocalData(u);
+                    MyApplication.getMyApplication().getDataPref().pushToPref(u);
                     MainActivity.startActivity(WelcomeActivity.this);
                     finish();
                     break;
@@ -80,14 +75,13 @@ public class WelcomeActivity extends BasicActivity {
 
     private void isLogin() {
 
-        token = MyApplication.getMyApplication().getUserinfo().getToken();
-        if (TextUtils.isEmpty(token)) {
+        UserinfoModel u = MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
+        if (u==null) {
             Message message = Message.obtain();
             message.what = StaticFlag.FAILURE;
             myHandler.sendMessage(message);
         }
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", token);
         MyVolley.getMyVolley().addStringRequest(new TypeToken<UserinfoModel>(){}.getType(),StaticFlag.AUTO_LOGIN, mParams,
                 new MyVolleyListener<UserinfoModel>() {
                     @Override

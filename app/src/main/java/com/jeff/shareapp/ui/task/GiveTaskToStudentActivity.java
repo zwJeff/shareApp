@@ -22,15 +22,11 @@ import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
-import com.jeff.shareapp.ui.CustomVIew.MyDialog;
-import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
-import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.util.FormatUtil;
-import com.jeff.shareapp.util.MyApplication;
-import com.jeff.shareapp.util.MyVolley;
-import com.jeff.shareapp.util.MyVolleyListener;
+import com.jeff.shareapp.core.MyApplication;
+import com.jeff.shareapp.net.MyVolley;
+import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
-import com.jeff.shareapp.util.StringUtil;
 import com.jeff.shareapp.util.UIUtils;
 
 import java.util.ArrayList;
@@ -177,7 +173,7 @@ public class GiveTaskToStudentActivity extends BasicActivity implements View.OnC
         if (u != null) {
             startWait();
             HashMap<String, String> mParams = new HashMap<String, String>();
-            mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
             mParams.put("student_id", u.getUserId() + "");
             mParams.put("task_id", taskId + "");
 
@@ -262,7 +258,7 @@ public class GiveTaskToStudentActivity extends BasicActivity implements View.OnC
 
         startWait();
         HashMap<String, String> mParams = new HashMap<String, String>();
-        mParams.put("token", MyApplication.getMyApplication().getUserinfo().getToken());
+
         mParams.put("key", key);
         new MyVolley(StaticFlag.FIND_STUDENT, mParams,
                 new MyVolleyListener() {
