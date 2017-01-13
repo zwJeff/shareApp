@@ -32,7 +32,7 @@ android {
         release {
             buildConfigField("String", "SERVER_ADDRESS", "\"http://wuzhang.win:8080\"")
             //设置是否生成debug版的APK
-            debuggable true
+            debuggable false
             //配置当前buildType的签名信息
             signingConfig signingConfigs.release
             //是否开启混淆
@@ -62,7 +62,7 @@ android {
         dev_aliyun {
             buildConfigField("String", "SERVER_ADDRESS", "\"http://wuzhang.win:8080\"")
             //设置是否生成debug版的APK
-            debuggable false
+            debuggable true
             //配置当前buildType的签名信息
             signingConfig signingConfigs.debug
             //是否开启混淆
@@ -75,7 +75,7 @@ android {
             proguardFile 'proguard.cfg'
         }
         dev_company {
-            buildConfigField("String", "SERVER_ADDRESS", "\"http://10.106.143.14:8080\"")
+            buildConfigField("String", "SERVER_ADDRESS", "\"http://10.106.141.29:8080\"")
             //设置是否生成debug版的APK
             debuggable true
             //配置当前buildType的签名信息
@@ -89,6 +89,24 @@ android {
             //移除未使用的资源
             shrinkResources false
         }
+
+
+        dev_myWiFi {
+            buildConfigField("String", "SERVER_ADDRESS", "\"http://192.168.43.18:8080\"")
+            //设置是否生成debug版的APK
+            debuggable true
+            //配置当前buildType的签名信息
+            signingConfig signingConfigs.release
+            //是否开启混淆
+            minifyEnabled false
+            //配置混淆文件
+            proguardFile 'E:/AndroidStudioProj/android/shareApp/app/proguard.cfg'
+            //是否zip对齐
+            zipAlignEnabled false
+            //移除未使用的资源
+            shrinkResources false
+        }
+
     }
 
 //修改生成的文件
@@ -114,7 +132,7 @@ android {
             //输出apk文件
             output.outputFile = new File(output.outputFile.parent, fileName)
 
-            //将apk复制到指定文件夹
+            //将release版本的apk复制到指定文件夹
             if (variant.buildType.name == "release") {
                 copy {
                     from('build/outputs/apk')

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
@@ -28,7 +29,7 @@ public class WelcomeActivity extends BasicActivity {
             switch (msg.what) {
                 case StaticFlag.SUCCESS:
                     try {
-                        Thread.currentThread().sleep(1000);//毫秒
+                        Thread.currentThread().sleep(500);//毫秒
                     } catch (Exception e) {
                     }
                     UserinfoModel u = (UserinfoModel) msg.getData().getSerializable("user_info");
@@ -39,7 +40,7 @@ public class WelcomeActivity extends BasicActivity {
                     break;
                 case StaticFlag.FAILURE:
                     try {
-                        Thread.currentThread().sleep(1000);//毫秒
+                        Thread.currentThread().sleep(500);//毫秒
                     } catch (Exception e) {
                     }
                     if (!TextUtils.isEmpty(msg.getData().getString("message")))
@@ -51,7 +52,7 @@ public class WelcomeActivity extends BasicActivity {
                     break;
                 case StaticFlag.ERROR:
                     try {
-                        Thread.currentThread().sleep(1000);//毫秒
+                        Thread.currentThread().sleep(500);//毫秒
                     } catch (Exception e) {
                     }
                     Toast.makeText(WelcomeActivity.this, msg.getData().getString("message"), Toast.LENGTH_SHORT).show();
@@ -115,6 +116,11 @@ public class WelcomeActivity extends BasicActivity {
                     }
                 }
         );
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
     }
 }
 

@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
+import com.jeff.shareapp.core.ActivityManager;
 import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
 import com.jeff.shareapp.ui.login.LoginActivity;
@@ -49,22 +52,29 @@ public class SettingActivity extends BasicActivity implements View.OnClickListen
 
     public Handler myHandler = new Handler() {
         public void handleMessage(Message msg) {
-                endWait();
+            endWait();
             switch (msg.what) {
                 case 1:
-//                    Intent i=new Intent(SettingActivity.this, LoginActivity.class);
-//                    startActivity(i);
-//                    UIUtils.pushToRight(SettingActivity.this);
-//                    finish();
+                    //停止接收token过期的广播
+                    if (isReciev) {
+                        isReciev = false;
+                        Log.i("jeff", "停止接收token过期的广播");
+                        getApplication().unregisterReceiver(broadcastReceiver);
 
-                    //停止轮询服务
-                    stopService(new Intent(SettingActivity.this, MyGetNotificationService.class));
+                    }
+
+                    if (MyGetNotificationService.isStartLoop) {
+                        //停止轮询服务
+                        Log.i("jeff", "停止接收token过期的广播");
+                        MyGetNotificationService.isStartLoop = false;
+                        stopService(new Intent(SettingActivity.this, MyGetNotificationService.class));
+                    }
 
                     Intent i = new Intent(SettingActivity.this, LoginActivity.class);
                     startActivity(i);
                     UIUtils.pushToRight(SettingActivity.this);
-                    finish();
-                  //  ActivityManager.getActivityManager().closeAllExcept(LoginActivity.class);
+                    ActivityManager.getActivityManager().closeAllExcept(LoginActivity.class);
+                    //  ActivityManager.getActivityManager().closeAllExcept(LoginActivity.class)
                     break;
                 case -1:
                     Toast.makeText(SettingActivity.this, msg.getData().getString("failure_message"), Toast.LENGTH_SHORT).show();
@@ -117,8 +127,9 @@ public class SettingActivity extends BasicActivity implements View.OnClickListen
         HashMap<String, String> mParams = new HashMap<String, String>();
 
 
-        new MyVolley<UserinfoModel>(StaticFlag.LOGOUT, mParams,
-                new MyVolleyListener() {
+        MyVolley.getMyVolley().addStringRequest(new TypeToken<Object>() {
+                }.getType(), StaticFlag.LOGOUT, mParams,
+                new MyVolleyListener<Object>() {
                     @Override
                     public void onSuccess(Object data) {
                         Message message = Message.obtain();

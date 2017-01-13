@@ -19,46 +19,43 @@ import com.jeff.shareapp.core.MyApplication;
 import com.jeff.shareapp.net.MyVolley;
 import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
+
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by 张武 on 2016/7/11.
  */
 public class MyGetNotificationService extends Service {
 
-    private static  int notificationNum=0;
+    private static int notificationNum = 0;
+
+    public static boolean isStartLoop=false;
 
 
     @Override
     public void onCreate() {
-        Log.e("--service--", "service is created!");
+        Log.e("jeff", "service is created!");
         super.onCreate();
     }
 
     @Override
     public void onStart(Intent intent, int startId) {
-        Log.e("--service--", "service is started!");
+        Log.e("jeff", "service is started!");
         super.onStart(intent, startId);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e("--service--", "service is running!");
-
-        new Thread(new Runnable() {
+        Log.e("jeff", "service is running!");
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                for(;;) {
-                    getTaskNewNums();
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
+                getTaskNewNums();
             }
-        }).start();
+        }, 0, 10*1000);
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -72,9 +69,8 @@ public class MyGetNotificationService extends Service {
 
         HashMap<String, String> mParams = new HashMap<String, String>();
 
-
-
-        MyVolley.getMyVolley().addStringRequest(new TypeToken<Integer>(){}.getType(),StaticFlag.GET_STUDENT_TASK_NEW, mParams, new MyVolleyListener<Integer>() {
+        MyVolley.getMyVolley().addStringRequest(new TypeToken<Integer>() {
+        }.getType(), StaticFlag.GET_STUDENT_TASK_NEW, mParams, new MyVolleyListener<Integer>() {
             @Override
             public void onSuccess(Integer data) {
                 if (data > 0)
@@ -83,28 +79,30 @@ public class MyGetNotificationService extends Service {
 
             @Override
             public void onFailure(int failureCode, String failureMessage) {
-
             }
 
             @Override
             public void onError(int errorCode, String errorMessage) {
-
             }
         });
 
     }
 
+    /**
+     * 通知栏里显示推送消息
+     *
+     * @param num
+     */
     private void showNotification(int num) {
         //从系统服务中获得通知管理器
         NotificationManager nm = (NotificationManager) MyGetNotificationService.this.getSystemService(Context.NOTIFICATION_SERVICE);
-
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("fragment_id",StaticFlag.TASKPAGE_FRAGMENT);
-        PendingIntent pendingIntent=PendingIntent.getActivity(this,1,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.putExtra("fragment_id", StaticFlag.TASKPAGE_FRAGMENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentTitle("您有新的学习任务！")//设置通知栏标题
-                .setContentText("当前共有"+num+"条学习任务等待学习，点击查看详情。") //设置通知栏显示内容
-                     .setContentIntent(pendingIntent) //设置通知栏点击意图
+                .setContentText("当前共有" + num + "条学习任务等待学习，点击查看详情。") //设置通知栏显示内容
+                .setContentIntent(pendingIntent) //设置通知栏点击意图
 //	.setNumber(number) //设置通知集合的数量
                 .setTicker("您有新的学习任务！") //通知首次出现在通知栏，带上升动画效果的
                 .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示，一般是系统获取到的时间
@@ -122,6 +120,6 @@ public class MyGetNotificationService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("--service--", "service is stopped!");
+        Log.e("jeff", "service is stopped!");
     }
 }

@@ -2,10 +2,12 @@ package com.jeff.shareapp.ui.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -23,6 +25,7 @@ import com.jeff.shareapp.ui.MainActivity;
 import com.jeff.shareapp.core.MyApplication;
 import com.jeff.shareapp.net.MyVolley;
 import com.jeff.shareapp.net.MyVolleyListener;
+import com.jeff.shareapp.ui.service.MyGetNotificationService;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 
@@ -50,6 +53,25 @@ public class LoginActivity extends BasicActivity {
                     MyApplication.getMyApplication().getDataPref().addToLocalData(u);
                     MyApplication.getMyApplication().getDataPref().pushToPref(u);
                     MainActivity.startActivity(LoginActivity.this,StaticFlag.INDEXPAGE_FRAGMENT);
+
+                    //添加token过期的广播接收
+                    broadcastReceiver = new TokenExpireReciever();
+                    filter = new IntentFilter("com.jeff.token_expire");
+                    //注册广播接收器
+                    if (!isReciev) {
+                            isReciev = true;
+                            Log.i("jeff","开始接收token过期的广播");
+                            getApplication().registerReceiver(broadcastReceiver, filter);
+                    }
+
+
+                    if (!MyGetNotificationService.isStartLoop) {
+                        //开启后台服务检测是否有新通知，每10s轮询一次
+                        Log.i("jeff","开启后台服务检测是否有新通知，每10s轮询一次");
+                        MyGetNotificationService.isStartLoop=true;
+                        startService(new Intent(LoginActivity.this, MyGetNotificationService.class));
+                    }
+
                     finish();
                     break;
                 case LOGIN_FAILURE:
@@ -184,7 +206,7 @@ public class LoginActivity extends BasicActivity {
                         myHandler.sendMessage(message);
                     }
                 }
-        ); ;
+        );
     }
 
 

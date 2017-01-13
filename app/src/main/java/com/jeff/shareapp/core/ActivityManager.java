@@ -7,10 +7,13 @@ import android.support.v4.app.FragmentActivity;
 
 import com.jeff.shareapp.ui.BasicActivity;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Stack;
 
 /**
+ * 说明： 自维护的activity管理类
  * Created by 张武 on 2016/8/2.
  */
 public class ActivityManager {
@@ -49,6 +52,7 @@ public class ActivityManager {
 
     /**
      * 关闭指定activity
+     *
      * @param activity
      */
     public void removeActivity(Activity activity) {
@@ -68,15 +72,18 @@ public class ActivityManager {
             return;
         Iterator<Activity> iterator = activityStack.iterator();
         Activity mActivity;
+        List<Activity> removeList = new ArrayList<>();
         while (iterator.hasNext()) {
             mActivity = iterator.next();
             if (mActivity.getClass().equals(cls)) {
                 //保留当前activity
             } else {
-                //关闭activity并从stack中移除
-                activityStack.remove(mActivity);
-                mActivity.finish();
+                removeList.add(mActivity);
             }
+        }
+        for (Activity a : removeList) {
+            activityStack.remove(a);
+            a.finish();
         }
 
     }
@@ -89,11 +96,15 @@ public class ActivityManager {
             return;
         Iterator<Activity> iterator = activityStack.iterator();
         Activity mActivity;
+        List<Activity> removeList = new ArrayList<>();
         while (iterator.hasNext()) {
             mActivity = iterator.next();
             //关闭activity并从stack中移除
-            activityStack.remove(mActivity);
-            mActivity.finish();
+            removeList.add(mActivity);
+        }
+        for (Activity a : removeList) {
+            activityStack.remove(a);
+            a.finish();
         }
     }
 

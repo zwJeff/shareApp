@@ -336,7 +336,7 @@ public class NewQuestionActivity extends BasicActivity implements View.OnClickLi
         mParams.put("question9_id", questions.get(9) + "");
 
         startWait();
-        new MyVolley<UserinfoModel>(StaticFlag.ARRANGEMENT_WORK, mParams,
+        new MyVolley(StaticFlag.ARRANGEMENT_WORK, mParams,
                 new MyVolleyListener() {
                     @Override
                     public void onSuccess(Object data) {

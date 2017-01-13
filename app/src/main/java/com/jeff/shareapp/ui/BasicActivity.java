@@ -27,12 +27,10 @@ public abstract class BasicActivity extends FragmentActivity {
 
     private MyWaitDialog waitDialog;
 
-    private TokenExpireReciever broadcastReceiver;
+    public static TokenExpireReciever broadcastReceiver;
+    protected IntentFilter filter;
 
     public static boolean isReciev = false;
-
-
-    private Object synchronizeObject = new Object();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +43,6 @@ public abstract class BasicActivity extends FragmentActivity {
 
         waitDialog = new MyWaitDialog(this);
 
-        //添加token过期的广播接收
-        broadcastReceiver = new TokenExpireReciever();
-        IntentFilter filter = new IntentFilter("com.jeff.token_expire");
-
-        //注册广播接收器
-        synchronized (synchronizeObject) {
-            if (!isReciev) {
-                isReciev = true;
-                registerReceiver(broadcastReceiver, filter);
-            }
-        }
         //Activity入栈
         ActivityManager.getActivityManager().addActivity(this);
     }
@@ -120,9 +107,9 @@ public abstract class BasicActivity extends FragmentActivity {
         public void onReceive(Context context, Intent intent) {
             int msg = intent.getIntExtra("msg", -1);
 
-            Log.i("当前显示的activity", StringUtil.getRunningActivityName());
+            Log.i("当前显示的activity--", StringUtil.getRunningActivityName());
 
-            if (msg == 440 && !"activity: com.jeff.shareapp.ui.WelcomeActivity".equals(StringUtil.getRunningActivityName().trim())) {
+            if (msg == 440 && !"com.jeff.shareapp.ui.WelcomeActivity".equals(StringUtil.getRunningActivityName().trim())) {
 
                 MyDialog m = new MyDialog(BasicActivity.this, 1);
                 m.setContentText("本账号已在其他设备上登陆，请您重新登录。");
@@ -143,10 +130,15 @@ public abstract class BasicActivity extends FragmentActivity {
                 m.showDiglog();
             }
         }
+
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if("com.jeff.shareapp.ui.WelcomeActivity".equals(StringUtil.getRunningActivityName().trim()))
+            return true;
+
         if (keyCode == event.KEYCODE_BACK) {
             if (ActivityManager.activityStack.size() <= 1) {
                 MyDialog m = new MyDialog(this);
@@ -171,12 +163,7 @@ public abstract class BasicActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
-        synchronized (synchronizeObject) {
-            if (isReciev) {
-                isReciev = false;
-                unregisterReceiver(broadcastReceiver);
-            }
-        }
+
         //Activity出栈
         ActivityManager.getActivityManager().removeActivity(this);
         super.onDestroy();

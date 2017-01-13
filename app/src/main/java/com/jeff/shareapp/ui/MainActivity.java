@@ -75,7 +75,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
             @Override
             public void onPageSelected(int position) {
-                onClickChangeView(101 + position,false,false);
+                onClickChangeView(101 + position, false, false);
             }
 
             @Override
@@ -84,9 +84,6 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
             }
         });
 
-
-        //开启后台服务检测是否有新通知，每10s轮询一次
-        startService(new Intent(MainActivity.this, MyGetNotificationService.class));
     }
 
     protected void onDestroy() {
@@ -151,7 +148,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
         mViewPager.setAdapter(new MyPageViewAdapter(fragList, getSupportFragmentManager()));
 
-        onClickChangeView(fragmentId,false, false);
+        onClickChangeView(fragmentId, false, false);
     }
 
 
@@ -212,19 +209,19 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
         switch (v.getId()) {
             case R.id.index_bt:
-                onClickChangeView(StaticFlag.INDEXPAGE_FRAGMENT,true, false);
+                onClickChangeView(StaticFlag.INDEXPAGE_FRAGMENT, true, false);
                 break;
 
             case R.id.allpage_bt:
-                onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT,true, false);
+                onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT, true, false);
                 break;
 
             case R.id.task_bt:
-                onClickChangeView(StaticFlag.TASKPAGE_FRAGMENT,true, false);
+                onClickChangeView(StaticFlag.TASKPAGE_FRAGMENT, true, false);
                 break;
 
             case R.id.mypage_bt:
-                onClickChangeView(StaticFlag.MYPAGE_FRAGMENT,true, false);
+                onClickChangeView(StaticFlag.MYPAGE_FRAGMENT, true, false);
                 break;
 
         }

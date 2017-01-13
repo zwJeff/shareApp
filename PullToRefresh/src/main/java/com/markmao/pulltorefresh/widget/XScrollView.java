@@ -133,7 +133,6 @@ public class XScrollView extends ScrollView implements OnScrollListener {
             });
         }
 
-        Log.i("!!!!!!!!!!!!",mLayout.getChildCount()+"");
 
         this.addView(mLayout);
     }

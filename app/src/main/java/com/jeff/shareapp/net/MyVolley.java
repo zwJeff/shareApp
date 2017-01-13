@@ -11,6 +11,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.ResponseEntivity.MyResponse;
@@ -48,7 +49,6 @@ public class MyVolley<T> {
     }
 
     /**
-     * 新接口废弃，旧借口待改造
      *
      * @param url
      * @param params
@@ -59,11 +59,11 @@ public class MyVolley<T> {
         //打印请求地址
 
         UserinfoModel u = MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
-        String token;
+        String token=null;
         if (u != null)
             token = u.getToken();
-        else token="";
-        params.put("token",token);
+        token = token==null?"":token;
+        params.put("token", token);
 
         Log.i("jeff", "MyVolley请求地址：  " + url);
         Log.i("jeff", "MyVolley参数：" + gson.toJson(params));
@@ -108,6 +108,10 @@ public class MyVolley<T> {
         };
         //超时时间20s 重试次数0
         mRequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, 1.0f));
+
+        if (requestQueue == null)
+            requestQueue = Volley.newRequestQueue(MyApplication.getMyApplication());
+
         requestQueue.add(mRequest);
     }
 
@@ -115,11 +119,11 @@ public class MyVolley<T> {
 
 
         UserinfoModel u = MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
-        String token;
+        String token=null;
         if (u != null)
             token = u.getToken();
-        else token="";
-        params.put("token",token);
+        token=token==null?"":token;
+        params.put("token", token);
 
         //打印请求地址
         Log.i("jeff", "MyVolley请求地址：  " + url);
@@ -137,11 +141,10 @@ public class MyVolley<T> {
                         if (myResponse.getStatus() == 200) {
                             Gson gson = FormatUtil.getFormatGson();
                             String jsonResult = gson.toJson(myResponse.getResult());
-                            ;
                             mListener.onSuccess((T) gson.fromJson(jsonResult, mType));
-                        } else
+                        }else
                             mListener.onFailure(myResponse.getStatus(), myResponse.getMessage());
-                        //token过期
+
                         if (myResponse.getStatus() == StaticFlag.TOKEN_EXPIRE) {
                             //发送广播告诉apptoken过期
                             context = MyApplication.getMyApplication().getApplicationContext();
@@ -153,7 +156,7 @@ public class MyVolley<T> {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        mListener.onError(-1, "网络超时！");
+                        mListener.onError(-1, "网络异常！");
                     }
                 }
         ) {
@@ -166,6 +169,10 @@ public class MyVolley<T> {
         };
         //超时时间20s 重试次数0
         mRequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, 1.0f));
+
+        if (requestQueue == null)
+            requestQueue = Volley.newRequestQueue(MyApplication.getMyApplication());
+
         requestQueue.add(mRequest);
     }
 
