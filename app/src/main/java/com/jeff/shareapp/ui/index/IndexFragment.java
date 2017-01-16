@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
@@ -25,7 +26,9 @@ import com.jeff.shareapp.ui.CustomVIew.BannerCirlePlayer;
 import com.jeff.shareapp.ui.CustomVIew.MyUploadMenuDialog;
 import com.jeff.shareapp.ui.CustomVIew.OnBtnClickListemer;
 import com.jeff.shareapp.ui.MainActivity;
+import com.jeff.shareapp.ui.WelcomeActivity;
 import com.jeff.shareapp.ui.allPage.ResourceDetialActivity;
+import com.jeff.shareapp.ui.login.LoginActivity;
 import com.jeff.shareapp.ui.task.NewTaskActivity;
 import com.jeff.shareapp.util.FormatUtil;
 import com.jeff.shareapp.core.MyApplication;
@@ -35,6 +38,7 @@ import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;
 import com.markmao.pulltorefresh.widget.XScrollView;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -133,7 +137,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_index, container, false);
         ButterKnife.inject(this, view);
-        mContentView=view;
+        mContentView = view;
         initData();
         mMainView.setPullLoadEnable(false);
         mImageLoader = new MyImageLoader(getContext());
@@ -324,7 +328,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
                     courseGroup1.getChildAt(i).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            MainActivity.getMainActivity().onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT,true,true);
+                            MainActivity.getMainActivity().onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT, true, true);
                         }
                     });
                 }
@@ -337,7 +341,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
                     courseGroup2.getChildAt(i).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            MainActivity.getMainActivity().onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT,true,true);
+                            MainActivity.getMainActivity().onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT, true, true);
                         }
                     });
                 }
@@ -345,7 +349,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
         courseGroup2.getChildAt(3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.getMainActivity().onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT,true,true);
+                MainActivity.getMainActivity().onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT, true, true);
             }
         });
 
@@ -389,26 +393,32 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
 
         switch (v.getId()) {
             case R.id.index_upload:
-                final MyUploadMenuDialog myDialog = new MyUploadMenuDialog(getContext());
-                myDialog.setBtnClick(new OnBtnClickListemer() {
-                    @Override
-                    public void OnOKBtnClick() {
-                        if (myDialog.getUploadType() == 0) {
-                            //
-                            ResourceUploadActivity.startActivity(getActivity(), 0);
-                            getActivity().finish();
-                        } else if (myDialog.getUploadType() == 1) {
-                            //
-                            NewTaskActivity.startActivity(getActivity());
-                            getActivity().finish();
+                if (MyApplication.getMyApplication().isLogin == false) {
+                    Intent i2 = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(i2);
+                    UIUtils.popToTop(getActivity());
+                } else {
+                    final MyUploadMenuDialog myDialog = new MyUploadMenuDialog(getContext());
+                    myDialog.setBtnClick(new OnBtnClickListemer() {
+                        @Override
+                        public void OnOKBtnClick() {
+                            if (myDialog.getUploadType() == 0) {
+                                //
+                                ResourceUploadActivity.startActivity(getActivity(), 0);
+                                getActivity().finish();
+                            } else if (myDialog.getUploadType() == 1) {
+                                //
+                                NewTaskActivity.startActivity(getActivity());
+                                getActivity().finish();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void OnCancleBtnClick() {
-                    }
-                });
-                myDialog.show();
+                        @Override
+                        public void OnCancleBtnClick() {
+                        }
+                    });
+                    myDialog.show();
+                }
                 break;
         }
     }
@@ -421,7 +431,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
 
     @Override
     public void onLoadMore() {
-        MainActivity.getMainActivity().onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT,true,true);
+        MainActivity.getMainActivity().onClickChangeView(StaticFlag.ALLPAGE_FRAGMENT, true, true);
         mMainView.stopLoadMore();
     }
 

@@ -32,6 +32,7 @@ public class WelcomeActivity extends BasicActivity {
                         Thread.currentThread().sleep(500);//毫秒
                     } catch (Exception e) {
                     }
+                    MyApplication.getMyApplication().isLogin=true;
                     UserinfoModel u = (UserinfoModel) msg.getData().getSerializable("user_info");
                     MyApplication.getMyApplication().getDataPref().addToLocalData(u);
                     MyApplication.getMyApplication().getDataPref().pushToPref(u);
@@ -43,9 +44,10 @@ public class WelcomeActivity extends BasicActivity {
                         Thread.currentThread().sleep(500);//毫秒
                     } catch (Exception e) {
                     }
+                    MyApplication.getMyApplication().isLogin=false;
                     if (!TextUtils.isEmpty(msg.getData().getString("message")))
                         Toast.makeText(WelcomeActivity.this, "登陆验证已过期,请重新登录！", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
                     startActivity(i);
                     UIUtils.popToLeft(WelcomeActivity.this);
                     finish();
@@ -55,8 +57,9 @@ public class WelcomeActivity extends BasicActivity {
                         Thread.currentThread().sleep(500);//毫秒
                     } catch (Exception e) {
                     }
+                    MyApplication.getMyApplication().isLogin=false;
                     Toast.makeText(WelcomeActivity.this, msg.getData().getString("message"), Toast.LENGTH_SHORT).show();
-                    Intent i2 = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    Intent i2 = new Intent(WelcomeActivity.this, MainActivity.class);
                     startActivity(i2);
                     UIUtils.popToLeft(WelcomeActivity.this);
                     finish();

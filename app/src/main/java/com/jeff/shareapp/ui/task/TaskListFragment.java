@@ -1,6 +1,7 @@
 package com.jeff.shareapp.ui.task;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,11 +23,13 @@ import com.jeff.shareapp.model.CourseTypeModel;
 import com.jeff.shareapp.model.TaskRespModel;
 import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.MainActivity;
+import com.jeff.shareapp.ui.login.LoginActivity;
 import com.jeff.shareapp.util.FormatUtil;
 import com.jeff.shareapp.core.MyApplication;
 import com.jeff.shareapp.net.MyVolley;
 import com.jeff.shareapp.net.MyVolleyListener;
 import com.jeff.shareapp.util.StaticFlag;
+import com.jeff.shareapp.util.UIUtils;
 import com.markmao.pulltorefresh.widget.XListView;
 
 import java.text.SimpleDateFormat;
@@ -40,6 +44,8 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
     private List<TaskRespModel> taskList;
     private List<TaskRespModel> mainTaskList;
     private RelativeLayout errorView;
+    private RelativeLayout notLoginView;
+    private LinearLayout taskTypeSelectView;
     private TextView errorText;
     private TextView currentBtn;
     private TextView historyBtn;
@@ -82,7 +88,7 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
                                         TaskDetialActivity.startActivity(getActivity(), mainTaskList.get(position - 1) + "");
                                     }
                                 });
-                            if (mainTaskList.size() < 10){
+                            if (mainTaskList.size() < 10) {
                                 mXistView.setPullLoadEnable(false);
                                 mXistView.setFooterText("暂无更多任务记录");
                             }
@@ -147,14 +153,28 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
     private void initView() {
         currentBtn = (TextView) view.findViewById(R.id.current_notice_button);
         historyBtn = (TextView) view.findViewById(R.id.history_notice_button);
+        taskTypeSelectView = (LinearLayout) view.findViewById(R.id.task_type_select);
         errorView = (RelativeLayout) view.findViewById(R.id.error_view);
         errorText = (TextView) view.findViewById(R.id.error_text);
         mXistView = (XListView) view.findViewById(R.id.task_list_view);
-        currentBtn.setOnClickListener(this);
-        historyBtn.setOnClickListener(this);
-        errorView.setOnClickListener(this);
-        errorView.setVisibility(View.GONE);
-        changeLab();
+        notLoginView = (RelativeLayout) view.findViewById(R.id.not_login_view);
+        if (MyApplication.getMyApplication().isLogin) {
+            currentBtn.setOnClickListener(this);
+            historyBtn.setOnClickListener(this);
+            errorView.setOnClickListener(this);
+            taskTypeSelectView.setVisibility(View.VISIBLE);
+            errorView.setVisibility(View.GONE);
+            notLoginView.setVisibility(View.GONE);
+            changeLab();
+        } else {
+            notLoginView.setOnClickListener(this);
+            taskTypeSelectView.setVisibility(View.GONE);
+            errorView.setVisibility(View.GONE);
+            errorView.setVisibility(View.GONE);
+            errorView.setVisibility(View.GONE);
+            mXistView.setVisibility(View.GONE);
+            notLoginView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initXListView() {
@@ -214,6 +234,11 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
                 break;
             case R.id.error_view:
                 getTaskList();
+                break;
+            case R.id.not_login_view:
+                Intent i2 = new Intent(getActivity(), LoginActivity.class);
+                startActivity(i2);
+                UIUtils.popToTop(getActivity());
                 break;
         }
     }

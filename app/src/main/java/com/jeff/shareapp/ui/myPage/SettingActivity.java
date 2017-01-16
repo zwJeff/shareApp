@@ -55,6 +55,10 @@ public class SettingActivity extends BasicActivity implements View.OnClickListen
             endWait();
             switch (msg.what) {
                 case 1:
+
+
+                    MyApplication.getMyApplication().isLogin = false;
+
                     //停止接收token过期的广播
                     if (isReciev) {
                         isReciev = false;
@@ -92,7 +96,14 @@ public class SettingActivity extends BasicActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.inject(this);
-        user = MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
+        if (MyApplication.getMyApplication().isLogin) {
+            user = MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
+        }else{
+            user=new UserinfoModel();
+            user.setUsername("未登录");
+            user.setTelephone("请点击登陆");
+            myHeadImage.setImageResource(R.mipmap.not_login_head_img);
+        }
         initView();
     }
 

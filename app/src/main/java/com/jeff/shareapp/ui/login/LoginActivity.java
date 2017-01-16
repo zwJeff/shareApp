@@ -48,6 +48,7 @@ public class LoginActivity extends BasicActivity {
             endWait();
             switch (msg.what) {
                 case LOGIN_SUCCESS:
+                    MyApplication.getMyApplication().isLogin=true;
                     Toast.makeText(LoginActivity.this,"登陆成功！",Toast.LENGTH_SHORT).show();
                     UserinfoModel u=(UserinfoModel) msg.getData().getSerializable("user_info");
                     MyApplication.getMyApplication().getDataPref().addToLocalData(u);

@@ -1,6 +1,5 @@
 package com.jeff.shareapp.ui;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +9,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jeff.shareapp.R;
 import com.jeff.shareapp.ui.allPage.AllPageFragment;
 import com.jeff.shareapp.ui.index.IndexFragment;
 import com.jeff.shareapp.ui.myPage.MyPageFragment;
-import com.jeff.shareapp.ui.service.MyGetNotificationService;
 import com.jeff.shareapp.ui.task.TaskListFragment;
 import com.jeff.shareapp.util.StaticFlag;
 import com.jeff.shareapp.util.UIUtils;

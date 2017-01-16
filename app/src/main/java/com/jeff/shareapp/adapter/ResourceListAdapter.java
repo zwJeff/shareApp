@@ -74,29 +74,30 @@ public class ResourceListAdapter extends BaseAdapter {
         viewHolder.resourceName.setText(resourceList.get(position).getResourceName());
         viewHolder.resourceAuthorAndTime.setText(resourceList.get(position).getAuthorName() + "上传于" + FormatUtil.DateFormat(resourceList.get(position).getResourceUploadTime()));
         viewHolder.resourcePic.setImageResource(UIUtils.getPicByType(resourceList.get(position).getResourceFileType()));
-        if (resourceList.get(position).getIsCollected() == 1) {
-            viewHolder.collectPic.setImageResource(R.mipmap.ic_favourite_press_25dp);
-            viewHolder.collectPic.setClickable(false);
-        } else
-            viewHolder.collectPic.setImageResource(R.mipmap.ic_favourite_normal_25dp);
-        viewHolder.collectPic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //收藏操作
-                if(resourceList.get(position).getIsCollected()==1){
-                    viewHolder.collectPic.setImageResource(R.mipmap.ic_favourite_normal_25dp);
-                    resourceList.get(position).setIsCollected(0);
-                    collectResource( resourceList.get(position).getResourceId()+"");
-                    Toast.makeText(context,"取消收藏成功！",Toast.LENGTH_SHORT).show();
-                }else{
-                    resourceList.get(position).setIsCollected(1);
-                    viewHolder.collectPic.setImageResource(R.mipmap.ic_favourite_press_25dp);
-                    collectResource( resourceList.get(position).getResourceId()+"");
-                    Toast.makeText(context,"收藏成功！",Toast.LENGTH_SHORT).show();
+        if (MyApplication.getMyApplication().isLogin) {
+            if (resourceList.get(position).getIsCollected() == 1) {
+                viewHolder.collectPic.setImageResource(R.mipmap.ic_favourite_press_25dp);
+                viewHolder.collectPic.setClickable(false);
+            } else
+                viewHolder.collectPic.setImageResource(R.mipmap.ic_favourite_normal_25dp);
+            viewHolder.collectPic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //收藏操作
+                    if (resourceList.get(position).getIsCollected() == 1) {
+                        viewHolder.collectPic.setImageResource(R.mipmap.ic_favourite_normal_25dp);
+                        resourceList.get(position).setIsCollected(0);
+                        collectResource(resourceList.get(position).getResourceId() + "");
+                        Toast.makeText(context, "取消收藏成功！", Toast.LENGTH_SHORT).show();
+                    } else {
+                        resourceList.get(position).setIsCollected(1);
+                        viewHolder.collectPic.setImageResource(R.mipmap.ic_favourite_press_25dp);
+                        collectResource(resourceList.get(position).getResourceId() + "");
+                        Toast.makeText(context, "收藏成功！", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
-
+            });
+        }
         return convertView;
 
     }

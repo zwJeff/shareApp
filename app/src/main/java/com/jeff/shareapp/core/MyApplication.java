@@ -12,6 +12,8 @@ import com.jeff.shareapp.util.StaticFlag;
 public class MyApplication extends Application {
 
     private static MyApplication singleInstance;
+    public boolean isLogin=false;
+
 
     //app缓存
     private MyDataPref dataPref;
