@@ -286,7 +286,7 @@ public class GetPasswordBackActivity extends BasicActivity implements OnClickLis
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程
             btn.setClickable(false);// 防止重复点击
-            btn.setTextColor(getResources().getColor(R.color.orange));
+            btn.setTextColor(getResources().getColor(R.color.gray));
             btn.setBackgroundResource(R.drawable.round_conner_line_gray);
             btn.setText("还剩" + millisUntilFinished / 1000 + "s");
         }

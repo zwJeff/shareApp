@@ -55,30 +55,12 @@ public class SettingActivity extends BasicActivity implements View.OnClickListen
             endWait();
             switch (msg.what) {
                 case 1:
-
-
                     MyApplication.getMyApplication().isLogin = false;
-
                     //停止接收token过期的广播
-                    if (isReciev) {
-                        isReciev = false;
-                        Log.i("jeff", "停止接收token过期的广播");
-                        getApplication().unregisterReceiver(broadcastReceiver);
-
-                    }
-
-                    if (MyGetNotificationService.isStartLoop) {
-                        //停止轮询服务
-                        Log.i("jeff", "停止接收token过期的广播");
-                        MyGetNotificationService.isStartLoop = false;
-                        stopService(new Intent(SettingActivity.this, MyGetNotificationService.class));
-                    }
-
-                    Intent i = new Intent(SettingActivity.this, LoginActivity.class);
-                    startActivity(i);
-                    UIUtils.pushToRight(SettingActivity.this);
-                    ActivityManager.getActivityManager().closeAllExcept(LoginActivity.class);
-                    //  ActivityManager.getActivityManager().closeAllExcept(LoginActivity.class)
+                    closeTokenExpireReceiver();
+                    //停止轮询服务
+                    closeGetNewNotification();
+                    finish();
                     break;
                 case -1:
                     Toast.makeText(SettingActivity.this, msg.getData().getString("failure_message"), Toast.LENGTH_SHORT).show();
@@ -87,7 +69,10 @@ public class SettingActivity extends BasicActivity implements View.OnClickListen
                     Toast.makeText(SettingActivity.this, msg.getData().getString("message"), Toast.LENGTH_SHORT).show();
                     break;
             }
-            super.handleMessage(msg);
+
+            super.
+
+                    handleMessage(msg);
         }
     };
 
@@ -98,8 +83,8 @@ public class SettingActivity extends BasicActivity implements View.OnClickListen
         ButterKnife.inject(this);
         if (MyApplication.getMyApplication().isLogin) {
             user = MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
-        }else{
-            user=new UserinfoModel();
+        } else {
+            user = new UserinfoModel();
             user.setUsername("未登录");
             user.setTelephone("请点击登陆");
             myHeadImage.setImageResource(R.mipmap.not_login_head_img);

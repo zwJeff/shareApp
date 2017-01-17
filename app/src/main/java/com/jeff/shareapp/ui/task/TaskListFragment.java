@@ -145,10 +145,14 @@ public class TaskListFragment extends Fragment implements View.OnClickListener, 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_task_list, container, false);
         this.view = view;
-        initView();
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initView();
+    }
 
     private void initView() {
         currentBtn = (TextView) view.findViewById(R.id.current_notice_button);

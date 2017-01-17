@@ -316,16 +316,6 @@ public class RegisterActivity extends BasicActivity implements OnClickListener {
         registerVerificationCodeView.setText(verificationCode);
     }
 
-    /**
-     * 产生token
-     *
-     * @return
-     */
-    private String creatToken() {
-        UUID uid = UUID.randomUUID();
-        return uid.toString();
-    }
-
     class TimeCount extends CountDownTimer {
         public TextView btn;
 
@@ -335,8 +325,8 @@ public class RegisterActivity extends BasicActivity implements OnClickListener {
         }
 
         @Override
-        public void onFinish() {
-            btn.setClickable(true);
+        public void onFinish() {// 计时完毕
+            btn.setClickable(true);// 防止重复点击
             btn.setTextColor(getResources().getColor(R.color.main_blue));
             btn.setBackgroundResource(R.drawable.round_conner_line_btn_bg);
             btn.setText("重新获取");

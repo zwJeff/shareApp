@@ -142,6 +142,12 @@ public class AllPageFragment extends Fragment implements XListView.IXListViewLis
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        onRefresh();
+    }
+
     private void initView() {
         mDropDownMenu = (DropDownMenu) view.findViewById(R.id.dropDownMenu);
         errorView= (RelativeLayout) view.findViewById(R.id.error_view);

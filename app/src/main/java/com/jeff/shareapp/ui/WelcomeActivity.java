@@ -36,6 +36,8 @@ public class WelcomeActivity extends BasicActivity {
                     UserinfoModel u = (UserinfoModel) msg.getData().getSerializable("user_info");
                     MyApplication.getMyApplication().getDataPref().addToLocalData(u);
                     MyApplication.getMyApplication().getDataPref().pushToPref(u);
+                    openGetNewNotification();
+                    openTokenExpireReceiver();
                     MainActivity.startActivity(WelcomeActivity.this);
                     finish();
                     break;

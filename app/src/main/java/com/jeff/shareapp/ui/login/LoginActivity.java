@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import java.util.HashMap;
 
 import com.google.gson.reflect.TypeToken;
 import com.jeff.shareapp.R;
+import com.jeff.shareapp.core.ActivityManager;
 import com.jeff.shareapp.model.UserinfoModel;
 import com.jeff.shareapp.ui.BasicActivity;
 import com.jeff.shareapp.ui.MainActivity;
@@ -38,45 +40,34 @@ public class LoginActivity extends BasicActivity {
     private Button loginBtn;
     private TextView registerBtn;
     private TextView getPasswordBackBtn;
+    private ImageView backImg;
 
 
-    private static final int LOGIN_SUCCESS=0;
-    private final int LOGIN_FAILURE=1;
+    private static final int LOGIN_SUCCESS = 0;
+    private final int LOGIN_FAILURE = 1;
 
     public Handler myHandler = new Handler() {
         public void handleMessage(Message msg) {
             endWait();
             switch (msg.what) {
                 case LOGIN_SUCCESS:
-                    MyApplication.getMyApplication().isLogin=true;
-                    Toast.makeText(LoginActivity.this,"登陆成功！",Toast.LENGTH_SHORT).show();
-                    UserinfoModel u=(UserinfoModel) msg.getData().getSerializable("user_info");
+                    MyApplication.getMyApplication().isLogin = true;
+                    Toast.makeText(LoginActivity.this, "登陆成功！", Toast.LENGTH_SHORT).show();
+                    UserinfoModel u = (UserinfoModel) msg.getData().getSerializable("user_info");
                     MyApplication.getMyApplication().getDataPref().addToLocalData(u);
                     MyApplication.getMyApplication().getDataPref().pushToPref(u);
-                    MainActivity.startActivity(LoginActivity.this,StaticFlag.INDEXPAGE_FRAGMENT);
 
-                    //添加token过期的广播接收
-                    broadcastReceiver = new TokenExpireReciever();
-                    filter = new IntentFilter("com.jeff.token_expire");
-                    //注册广播接收器
-                    if (!isReciev) {
-                            isReciev = true;
-                            Log.i("jeff","开始接收token过期的广播");
-                            getApplication().registerReceiver(broadcastReceiver, filter);
-                    }
-
-
-                    if (!MyGetNotificationService.isStartLoop) {
-                        //开启后台服务检测是否有新通知，每10s轮询一次
-                        Log.i("jeff","开启后台服务检测是否有新通知，每10s轮询一次");
-                        MyGetNotificationService.isStartLoop=true;
-                        startService(new Intent(LoginActivity.this, MyGetNotificationService.class));
-                    }
+                    if (ActivityManager.getActivityManager().activityStack.size() <= 1)
+                        MainActivity.startActivity(LoginActivity.this, StaticFlag.INDEXPAGE_FRAGMENT);
+                    //接受推送消息
+                    openGetNewNotification();
+                    //接收token过期的广播
+                    openTokenExpireReceiver();
 
                     finish();
                     break;
                 case LOGIN_FAILURE:
-                    Toast.makeText(LoginActivity.this,msg.getData().getString("failure_message"),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, msg.getData().getString("failure_message"), Toast.LENGTH_SHORT).show();
                     break;
                 case StaticFlag.ERROR:
                     try {
@@ -90,8 +81,8 @@ public class LoginActivity extends BasicActivity {
         }
     };
 
-    public static void startActivity(Activity activity){
-        Intent i=new Intent(activity,LoginActivity.class);
+    public static void startActivity(Activity activity) {
+        Intent i = new Intent(activity, LoginActivity.class);
         activity.startActivity(i);
         UIUtils.pushToRight(activity);
     }
@@ -169,20 +160,21 @@ public class LoginActivity extends BasicActivity {
     }
 
     private void loginToNet() {
-        HashMap<String, String> mParams=new HashMap<String, String>();
-        mParams.put("loginname",loginNameTextView.getText().toString().trim());
-        mParams.put("password",mPasswordView.getText().toString().trim());
+        HashMap<String, String> mParams = new HashMap<String, String>();
+        mParams.put("loginname", loginNameTextView.getText().toString().trim());
+        mParams.put("password", mPasswordView.getText().toString().trim());
 
         startWait();
-        MyVolley.getMyVolley().addStringRequest(new TypeToken<UserinfoModel>(){}.getType(),StaticFlag.LOGIN, mParams,
+        MyVolley.getMyVolley().addStringRequest(new TypeToken<UserinfoModel>() {
+                }.getType(), StaticFlag.LOGIN, mParams,
                 new MyVolleyListener<UserinfoModel>() {
                     @Override
                     public void onSuccess(UserinfoModel data) {
 
                         Message message = Message.obtain();
                         message.what = LOGIN_SUCCESS;
-                        Bundle b=new Bundle();
-                        b.putSerializable("user_info",data);
+                        Bundle b = new Bundle();
+                        b.putSerializable("user_info", data);
                         message.setData(b);
                         myHandler.sendMessage(message);
                     }
@@ -191,8 +183,8 @@ public class LoginActivity extends BasicActivity {
                     public void onFailure(int failureCode, String failureMessage) {
                         Message message = Message.obtain();
                         message.what = LOGIN_FAILURE;
-                        Bundle b=new Bundle();
-                        b.putString("failure_message",failureMessage);
+                        Bundle b = new Bundle();
+                        b.putString("failure_message", failureMessage);
                         message.setData(b);
                         myHandler.sendMessage(message);
                     }
@@ -209,7 +201,6 @@ public class LoginActivity extends BasicActivity {
                 }
         );
     }
-
 
 
 }

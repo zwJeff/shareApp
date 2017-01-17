@@ -60,12 +60,17 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_page, container, false);
         ButterKnife.inject(this, view);
+        return view;
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if (MyApplication.getMyApplication().isLogin) {
             user = MyApplication.getMyApplication().getDataPref().getLocalData(UserinfoModel.class);
         }
         initView();
-        return view;
-
     }
 
     private void initView() {
