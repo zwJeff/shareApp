@@ -334,19 +334,15 @@ public class ResourceUploadActivity extends BasicActivity implements View.OnClic
      * 根据返回选择的文件，来进行操作
      **/
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         // TODO Auto-generated method stub
         if (resultCode == Activity.RESULT_OK) {
             // Get the Uri of the selected file
-            Uri uri = data.getData();
-
-            filePath = uri.getPath();
-
             Toast.makeText(this, filePath, Toast.LENGTH_LONG).show();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    UploadUtil.uploadFile(new File(filePath), StaticFlag.UPLOAD, new FileUploadListener() {
+                    UploadUtil.uploadFile(new File(UploadUtil.getFileAbsolutePath(ResourceUploadActivity.this,data.getData())), StaticFlag.UPLOAD, new FileUploadListener() {
                         @Override
                         public void onStart() {
 

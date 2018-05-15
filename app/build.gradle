@@ -11,101 +11,12 @@ android {
         versionName "1.0"
     }
 
-    signingConfigs {
-        release {          //release版签名
-            storeFile file('E:/AndroidStudioProj/shareApp.jeff')
-            storePassword 'zhangwu'
-            keyAlias 'android.keystore'
-            keyPassword "123456"
-            v2SigningEnabled false
-        }
-        debug {             //debug版签名
-            storeFile file('E:/AndroidStudioProj/shareApp.jeff')
-            storePassword 'zhangwu'
-            keyAlias 'android.keystore'
-            keyPassword "123456"
-            v2SigningEnabled false
-        }
-    }
 
     buildTypes {
-        release {
-            buildConfigField("String", "SERVER_ADDRESS", "\"http://wuzhang.win:8080\"")
-            //设置是否生成debug版的APK
-            debuggable false
-            //配置当前buildType的签名信息
-            signingConfig signingConfigs.release
-            //是否开启混淆
-            minifyEnabled true
-            //配置混淆文件
-            proguardFiles 'proguard.cfg'
-            //是否zip对齐
-            zipAlignEnabled true
-            //移除未使用的资源
-            shrinkResources true
-        }
         debug {
-            buildConfigField("String", "SERVER_ADDRESS", "\"http://10.106.143.14:8080\"")
-            //设置是否生成debug版的APK
-            debuggable true
-            //配置当前buildType的签名信息
-            signingConfig signingConfigs.debug
-            //是否开启混淆
-            minifyEnabled false
-            //配置混淆文件
-            proguardFiles 'proguard.cfg'
-            //是否zip对齐
-            zipAlignEnabled false
-            //移除未使用的资源
-            shrinkResources false
-        }
-        dev_aliyun {
-            buildConfigField("String", "SERVER_ADDRESS", "\"http://wuzhang.win:8080\"")
-            //设置是否生成debug版的APK
-            debuggable true
-            //配置当前buildType的签名信息
-            signingConfig signingConfigs.debug
-            //是否开启混淆
-            minifyEnabled false
-            //是否zip对齐
-            zipAlignEnabled false
-            //移除未使用的资源
-            shrinkResources false
-            //配置混淆文件
-            proguardFile 'proguard.cfg'
-        }
-        dev_company {
-            buildConfigField("String", "SERVER_ADDRESS", "\"http://10.106.141.29:8080\"")
-            //设置是否生成debug版的APK
-            debuggable true
-            //配置当前buildType的签名信息
-            signingConfig signingConfigs.release
-            //是否开启混淆
-            minifyEnabled false
-            //配置混淆文件
-            proguardFile 'E:/AndroidStudioProj/android/shareApp/app/proguard.cfg'
-            //是否zip对齐
-            zipAlignEnabled false
-            //移除未使用的资源
-            shrinkResources false
-        }
+            buildConfigField("String", "SERVER_ADDRESS", "\"http://jeffzw.com:8080\"")
+         }
 
-
-        dev_myWiFi {
-            buildConfigField("String", "SERVER_ADDRESS", "\"http://192.168.43.18:8080\"")
-            //设置是否生成debug版的APK
-            debuggable true
-            //配置当前buildType的签名信息
-            signingConfig signingConfigs.release
-            //是否开启混淆
-            minifyEnabled false
-            //配置混淆文件
-            proguardFile 'E:/AndroidStudioProj/android/shareApp/app/proguard.cfg'
-            //是否zip对齐
-            zipAlignEnabled false
-            //移除未使用的资源
-            shrinkResources false
-        }
 
     }
 
@@ -160,6 +71,4 @@ android {
         compile 'com.google.code.gson:gson:2.6.2'
         compile 'de.greenrobot:eventbus:2.4.0'
     }
-}
-dependencies {
 }

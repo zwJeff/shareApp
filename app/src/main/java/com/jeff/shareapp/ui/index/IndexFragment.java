@@ -81,6 +81,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener, XSc
 
     public Handler myHandler = new Handler() {
         public void handleMessage(Message msg) {
+            if(getActivity()==null)
+                return;
             switch (msg.what) {
                 case 1:
                     synchronized (this) {
